@@ -67,9 +67,21 @@ CREATE TABLE atividade (
 	data_realizacao								TIMESTAMP,
 	imagem										VARCHAR(500),
 	topico										INT					NOT NULL,
-	review_atividade							INT,
+	revisao										INT,
 	CONSTRAINT pk_atividade PRIMARY KEY (id),
-	CONSTRAINT fk_atividade_topico FOREIGN KEY (topico) REFERENCES topico (id)
+	CONSTRAINT fk_atividade_topico FOREIGN KEY (topico) REFERENCES topico (id),
+	CONSTRAINT fk_atividade_revisao FOREIGN KEY (revisao) REFERENCES revisao (id)
+);
+
+
+CREATE TABLE gosto (
+	id											SERIAL				NOT NULL,
+	data_criacao								TIMESTAMP			NOT NULL	DEFAULT NOW(),
+	atividade									INT					NOT NULL,
+	utilizador									INT					NOT NULL,
+	CONSTRAINT pk_gosto PRIMARY KEY (id),
+	CONSTRAINT fk_gosto_atividade FOREIGN KEY (atividade) REFERENCES atividade (id),
+	CONSTRAINT fk_gosto_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id)
 );
 
 
