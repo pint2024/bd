@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS utilizador CASCADE;
 DROP TABLE IF EXISTS categoria CASCADE;
 DROP TABLE IF EXISTS topico CASCADE;
 DROP TABLE IF EXISTS atividade CASCADE;
+DROP TABLE IF EXISTS gosto CASCADE;
 DROP TABLE IF EXISTS estado CASCADE;
 DROP TABLE IF EXISTS revisao CASCADE;
 DROP TABLE IF EXISTS comentario CASCADE;
@@ -64,7 +65,7 @@ CREATE TABLE atividade (
 	descricao									VARCHAR(500)		NOT NULL,
 	endereco									VARCHAR(500),
 	preco										MONEY,
-	data_realizacao								TIMESTAMP,
+	data_evento									TIMESTAMP,
 	imagem										VARCHAR(500),
 	topico										INT					NOT NULL,
 	revisao										INT,
