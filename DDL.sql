@@ -24,10 +24,10 @@ CREATE TABLE perfil ( -- perfil do utilizador
 CREATE TABLE utilizador (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	tag						VARCHAR(21)			NOT NULL,
+	tag						VARCHAR(21)			UNIQUE,
 	nome					VARCHAR(100)		NOT NULL,
 	sobrenome				VARCHAR(100)		NOT NULL,
-	email					VARCHAR(100)		NOT NULL,
+	email					VARCHAR(100)		NOT NULL	UNIQUE,
 	senha					VARCHAR(500)		NOT NULL,
 	data_nascimento			DATE,
 	imagem					VARCHAR(500),
@@ -55,6 +55,26 @@ CREATE TABLE topico ( -- topico da ativdade
 	categoria				INT					NOT NULL,
 	CONSTRAINT pk_topico PRIMARY KEY (id),
 	CONSTRAINT fk_topico_categoria FOREIGN KEY (categoria) REFERENCES categoria (id)
+);
+
+
+CREATE TABLE estado ( -- estado da revisão | 1 = Em espera; 2 = Aceite; 3 = Recusado
+	id						SERIAL				NOT NULL,
+	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
+	estado					VARCHAR(100),
+	CONSTRAINT pk_estado PRIMARY KEY (id)
+);
+
+
+CREATE TABLE revisao ( -- revisão da atividade
+	id						SERIAL				NOT NULL,
+	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
+	motivo					VARCHAR(500)		NOT NULL,
+	utilizador				INT					NOT NULL,
+	estado					INT					NOT NULL	DEFAULT (1),
+	CONSTRAINT pk_revisao PRIMARY KEY (id),
+	CONSTRAINT fk_revisao_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id),
+	CONSTRAINT fk_revisao_estado FOREIGN KEY (estado) REFERENCES estado (id)
 );
 
 
@@ -86,30 +106,10 @@ CREATE TABLE gosto (
 );
 
 
-CREATE TABLE estado ( -- estado da revisão | 1 = Em espera; 2 = Aceite; 3 = Recusado
-	id						SERIAL				NOT NULL,
-	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	estado					VARCHAR(100),
-	CONSTRAINT pk_estado PRIMARY KEY (id)
-);
-
-
-CREATE TABLE revisao ( -- revisão da atividade
-	id						SERIAL				NOT NULL,
-	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	motivo					VARCHAR(500)		NOT NULL,
-	utilizador				INT					NOT NULL,
-	estado					INT,
-	CONSTRAINT pk_revisao PRIMARY KEY (id),
-	CONSTRAINT fk_revisao_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id),
-	CONSTRAINT fk_revisao_estado FOREIGN KEY (estado) REFERENCES estado (id)
-);
-
-
 CREATE TABLE comentario ( -- comentario da atividade
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	comentario				VARCHAR(300)		NOT NULL,
+	comentario				VARCHAR(500)		NOT NULL,
 	atividade				INT					NOT NULL,
 	utilizador				INT					NOT NULL,
 	CONSTRAINT pk_comentario PRIMARY KEY (id),
@@ -136,7 +136,7 @@ CREATE TABLE notificacao (
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
 	visualizado				BOOLEAN				NOT NULL	DEFAULT (FALSE),
 	utilizador				INT					NOT NULL,
-	assunto					VARCHAR(100)		NOT NULL,
+	titulo					VARCHAR(100)		NOT NULL,
 	descricao				VARCHAR(500)		NOT NULL,
 	atividade				INT,
 	comentario				INT,
