@@ -151,3 +151,9 @@ CREATE TABLE notificacao (
 		(atividade IS NULL AND comentario IS NOT NULL AND revisao IS NULL) OR
 		(atividade IS NULL AND comentario IS NULL AND revisao IS NOT NULL))
 );
+
+CREATE TABLE denuncia (
+	id						SERIAL				NOT NULL,
+	data_criacao			TIMESTAMP			NOT NULL,
+	CONSTRAINT fk_utilizador_perfil FOREIGN KEY (utilizador) REFERENCES utilizador (id),
+)
