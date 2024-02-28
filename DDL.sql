@@ -155,5 +155,11 @@ CREATE TABLE notificacao (
 CREATE TABLE denuncia (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL,
-	CONSTRAINT fk_utilizador_perfil FOREIGN KEY (utilizador) REFERENCES utilizador (id),
-)
+	titulo					VARCHAR(100)		NOT NULL,
+	atividade				INT					NOT NULL,
+	utilizador				INT					NOT NULL,
+	motivo					VARCHAR(500)		NOT NULL,
+	CONSTRAINT pk_denuncia PRIMARY KEY (id),
+	CONSTRAINT fk_denuncia_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id),
+	CONSTRAINT fk_denuncia_atividade FOREIGN KEY (atividade) REFERENCES atividade(id),
+);
