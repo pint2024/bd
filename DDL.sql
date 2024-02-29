@@ -9,6 +9,7 @@ DROP TABLE IF EXISTS revisao CASCADE;
 DROP TABLE IF EXISTS comentario CASCADE;
 DROP TABLE IF EXISTS classificacao CASCADE;
 DROP TABLE IF EXISTS notificacao CASCADE;
+DROP TABLE IF EXISTS denuncia CASCADE;
 
 
 
@@ -24,17 +25,16 @@ CREATE TABLE perfil ( -- perfil do utilizador
 CREATE TABLE utilizador (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	tag						VARCHAR(21)			UNIQUE,
+	tag						VARCHAR(21)			NOT NULL	UNIQUE,
 	nome					VARCHAR(100)		NOT NULL,
 	sobrenome				VARCHAR(100)		NOT NULL,
 	email					VARCHAR(100)		NOT NULL	UNIQUE,
 	senha					VARCHAR(500)		NOT NULL,
-	data_nascimento			DATE,
 	imagem					VARCHAR(500),
 	linkedin				VARCHAR(500),
 	instagram				VARCHAR(500),
 	facebook				VARCHAR(500),
-	perfil					INT					NOT NULL,
+	perfil					INT					NOT NULL	DEFAULT (1),
 	CONSTRAINT pk_utilizador PRIMARY KEY (id),
 	CONSTRAINT fk_utilizador_perfil FOREIGN KEY (perfil) REFERENCES perfil (id)
 );
@@ -61,7 +61,7 @@ CREATE TABLE topico ( -- topico da ativdade
 CREATE TABLE estado ( -- estado da revisão | 1 = Em espera; 2 = Aceite; 3 = Recusado
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	estado					VARCHAR(100),
+	estado					VARCHAR(100)		NOT NULL,
 	CONSTRAINT pk_estado PRIMARY KEY (id)
 );
 
@@ -70,10 +70,8 @@ CREATE TABLE revisao ( -- revisão da atividade
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
 	motivo					VARCHAR(500)		NOT NULL,
-	utilizador				INT					NOT NULL,
 	estado					INT					NOT NULL	DEFAULT (1),
 	CONSTRAINT pk_revisao PRIMARY KEY (id),
-	CONSTRAINT fk_revisao_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id),
 	CONSTRAINT fk_revisao_estado FOREIGN KEY (estado) REFERENCES estado (id)
 );
 
@@ -89,9 +87,11 @@ CREATE TABLE atividade (
 	imagem					VARCHAR(500),
 	topico					INT					NOT NULL,
 	revisao					INT,
+	utilizador				INT,
 	CONSTRAINT pk_atividade PRIMARY KEY (id),
 	CONSTRAINT fk_atividade_topico FOREIGN KEY (topico) REFERENCES topico (id),
 	CONSTRAINT fk_atividade_revisao FOREIGN KEY (revisao) REFERENCES revisao (id)
+	CONSTRAINT fk_atividade_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id)
 );
 
 
@@ -135,9 +135,9 @@ CREATE TABLE notificacao (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
 	visualizado				BOOLEAN				NOT NULL	DEFAULT (FALSE),
-	utilizador				INT					NOT NULL,
 	titulo					VARCHAR(100)		NOT NULL,
 	descricao				VARCHAR(500)		NOT NULL,
+	utilizador				INT					NOT NULL,
 	atividade				INT,
 	comentario				INT,
 	revisao					INT,
@@ -152,14 +152,49 @@ CREATE TABLE notificacao (
 		(atividade IS NULL AND comentario IS NULL AND revisao IS NOT NULL))
 );
 
+
 CREATE TABLE denuncia (
 	id						SERIAL				NOT NULL,
-	data_criacao			TIMESTAMP			NOT NULL,
+	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
 	titulo					VARCHAR(100)		NOT NULL,
 	motivo					VARCHAR(500)		NOT NULL,
 	atividade				INT					NOT NULL,
 	utilizador				INT					NOT NULL,
 	CONSTRAINT pk_denuncia PRIMARY KEY (id),
 	CONSTRAINT fk_denuncia_atividade FOREIGN KEY (atividade) REFERENCES atividade(id),
-	CONSTRAINT fk_denuncia_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id)
+	CONSTRAINT fk_denuncia_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id),
+);
+
+
+CREATE TABLE conversa (
+	id						SERIAL				NOT NULL,
+	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
+	titulo					VARCHAR(100)		NOT NULL,
+	descricao				VARCHAR(500)		NOT NULL,
+	topico					INT					NOT NULL,
+	CONSTRAINT pk_conversa PRIMARY KEY (id),
+	CONSTRAINT fk_conversa_topico FOREIGN KEY (topico) REFERENCES topico (id)
+);
+
+
+CREATE TABLE participante ( -- participante de uma conversa
+	id						SERIAL				NOT NULL,
+	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
+	conversa				INT					NOT NULL,
+	utilizador				INT					NOT NULL,
+	perfil					INT					NOT NULL	DEFAULT (1),
+	CONSTRAINT pk_participante PRIMARY KEY (id),
+	CONSTRAINT fk_participante_conversa FOREIGN KEY (conversa) REFERENCES conversa (id),
+	CONSTRAINT fk_participante_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id)
+	CONSTRAINT fk_participante_perfil FOREIGN KEY (perfil) REFERENCES perfil (id)
+);
+
+
+CREATE TABLE mensagem ( -- mensagem de participante 
+	id						SERIAL				NOT NULL,
+	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
+	mensagem				VARCHAR(100)		NOT NULL,
+	participante			INT					NOT NULL,
+	CONSTRAINT pk_mensagem PRIMARY KEY (id),
+	CONSTRAINT fk_mensagem_participante FOREIGN KEY (participante) REFERENCES participante (id)
 );
