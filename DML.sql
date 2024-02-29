@@ -19,7 +19,7 @@ INSERT INTO categoria (categoria) VALUES
 	('Gastronomia'),	
 	('Habitação'),	
 	('Mobilidade'),	
-	('Lazer'),	
+	('Lazer');
 
 
 INSERT INTO topico (area, categoria) VALUES
@@ -79,7 +79,7 @@ INSERT INTO atividade (titulo, descricao, endereco, preco, data_evento, imagem, 
 	('(2) Partida de Futebol Amistosa', 'Junte-se a nós para uma partida descontraída.', 'Campo de Futebol Municipal', 5.00, '2024-03-20 16:00:00', '/path/imagem', 18, 6, 3),
 	('Palestra sobre IA', 'Entenda as últimas tendências em inteligência artificial.', 'Centro de Conferências, 789', 15.00, '2024-03-25 19:30:00', '/path/imagem', 4, 7, 4),
 	('(2) Palestra sobre IA', 'Entenda as últimas tendências em inteligência artificial.', 'Centro de Conferências, 789', 15.00, '2024-03-25 19:30:00', '/path/imagem', 17, 8, 4),
-	('Workshop de Gestão Ágil', 'Aprenda práticas ágeis para gerenciar projetos eficientemente.', 'Sala de Treinamento, 101', 30.00, '2024-04-05 10:00:00', '/path/imagem', 5, 9, 5);
+	('Workshop de Gestão Ágil', 'Aprenda práticas ágeis para gerenciar projetos eficientemente.', 'Sala de Treinamento, 101', 30.00, '2024-04-05 10:00:00', '/path/imagem', 5, 9, 5),
 	('(2) Workshop de Gestão Ágil', 'Aprenda práticas ágeis para gerenciar projetos eficientemente.', 'Sala de Treinamento, 101', 30.00, '2024-04-05 10:00:00', '/path/imagem', 16, 10, 5);
 
 
@@ -114,11 +114,11 @@ INSERT INTO classificacao (classificacao, atividade, utilizador) VALUES
 	(8, 2, 2),
 	(7, 3, 3),
 	(10, 4, 4),
-	(6, 5, 5);
-	(6, 6, 5);
-	(6, 7, 4);
-	(6, 8, 3);
-	(6, 9, 2);
+	(6, 5, 5),
+	(6, 6, 5),
+	(6, 7, 4),
+	(6, 8, 3),
+	(6, 9, 2),
 	(6, 10, 1);
 
 
@@ -126,10 +126,34 @@ INSERT INTO notificacao (visualizado, utilizador, titulo, descricao, atividade, 
 	(FALSE, 1, 'Nova Atividade', 'Workshop de React disponível.', 1, NULL, NULL),
 	(FALSE, 2, 'Comentário Recebido', 'Seu comentário foi apreciado na exposição de arte.', NULL, 2, NULL),
 	(FALSE, 3, 'Classificação Recebida', 'Sua palestra sobre IA recebeu uma classificação alta.', 4, NULL, NULL),
-	(FALSE, 4, 'Próximo Jogo', 'A partida de futebol amistosa está marcada para domingo.', NULL, 1),
+	(FALSE, 4, 'Próximo Jogo', 'A partida de futebol amistosa está marcada para domingo.', NULL, 1, NULL),
 	(FALSE, 5, 'Feedback Recebido', 'Seu workshop de gestão ágil recebeu elogios.', 5, NULL, NULL);
 
 
-INSERT INTO denuncia (data_criacao, titulo, motivo, atividade, utilizador) VALUES
-	('2024-03-01', 'Conteúdo Inadequado', 'Denúncia de atividade ofensiva.', 2, 5),
-	('2024-03-05', 'Comentário Inapropriado', 'Denúncia de comentário inadequado.', NULL, 4);
+INSERT INTO denuncia (titulo, motivo, atividade, utilizador) VALUES
+	('Conteúdo Inadequado', 'Denúncia de atividade ofensiva.', 2, 5),
+	('Comentário Inapropriado', 'Denúncia de comentário inadequado.', 1, 4);
+
+
+INSERT INTO conversa (titulo, descricao, topico) VALUES
+	('TrabalhosEscolinha', 'Os reis', 1),
+	('EI', 'Curso de Engenharia Informática', 2),
+	('ES @ ESTGV', 'Discord para as disciplinas de Engenharia de Software', 3),
+	('Reis', 'Os reis versão barata', 4),
+	('Ciganos', 'Os ciganos', 5);
+
+
+INSERT INTO participante (conversa, utilizador, perfil) VALUES
+	(1, 1, 2), (1, 2, 1), (1, 3, 1), (1, 4, 1), (1, 5, 1),
+	(2, 1, 2), (2, 2, 1), (2, 3, 1), (2, 4, 1), (2, 5, 1),
+	(3, 1, 2), (3, 2, 1), (3, 3, 1), (3, 4, 1), (3, 5, 1),
+	(4, 1, 2), (4, 2, 1), (4, 3, 1), (4, 4, 1), (4, 5, 1),
+	(5, 1, 2), (5, 2, 1), (5, 3, 1), (5, 4, 1), (5, 5, 1);
+
+
+INSERT INTO mensagem (mensagem, participante) VALUES
+	('ola', 1), ('ola', 2), ('ola', 3), ('ola', 4), ('ola', 5),
+	('ola', 6), ('ola', 7), ('ola', 8), ('ola', 9), ('ola', 10),
+	('ola', 11), ('ola', 12), ('ola', 13), ('ola', 14), ('ola', 15),
+	('ola', 16), ('ola', 17), ('ola', 18), ('ola', 19), ('ola', 20),
+	('ola', 21), ('ola', 22), ('ola', 23), ('ola', 24), ('ola', 25);

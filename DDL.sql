@@ -2,14 +2,17 @@ DROP TABLE IF EXISTS perfil CASCADE;
 DROP TABLE IF EXISTS utilizador CASCADE;
 DROP TABLE IF EXISTS categoria CASCADE;
 DROP TABLE IF EXISTS topico CASCADE;
-DROP TABLE IF EXISTS atividade CASCADE;
-DROP TABLE IF EXISTS gosto CASCADE;
 DROP TABLE IF EXISTS estado CASCADE;
 DROP TABLE IF EXISTS revisao CASCADE;
+DROP TABLE IF EXISTS atividade CASCADE;
+DROP TABLE IF EXISTS gosto CASCADE;
 DROP TABLE IF EXISTS comentario CASCADE;
 DROP TABLE IF EXISTS classificacao CASCADE;
 DROP TABLE IF EXISTS notificacao CASCADE;
 DROP TABLE IF EXISTS denuncia CASCADE;
+DROP TABLE IF EXISTS conversa CASCADE;
+DROP TABLE IF EXISTS participante CASCADE;
+DROP TABLE IF EXISTS mensagem CASCADE;
 
 
 
@@ -90,7 +93,7 @@ CREATE TABLE atividade (
 	utilizador				INT,
 	CONSTRAINT pk_atividade PRIMARY KEY (id),
 	CONSTRAINT fk_atividade_topico FOREIGN KEY (topico) REFERENCES topico (id),
-	CONSTRAINT fk_atividade_revisao FOREIGN KEY (revisao) REFERENCES revisao (id)
+	CONSTRAINT fk_atividade_revisao FOREIGN KEY (revisao) REFERENCES revisao (id),
 	CONSTRAINT fk_atividade_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id)
 );
 
@@ -162,7 +165,7 @@ CREATE TABLE denuncia (
 	utilizador				INT					NOT NULL,
 	CONSTRAINT pk_denuncia PRIMARY KEY (id),
 	CONSTRAINT fk_denuncia_atividade FOREIGN KEY (atividade) REFERENCES atividade(id),
-	CONSTRAINT fk_denuncia_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id),
+	CONSTRAINT fk_denuncia_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id)
 );
 
 
@@ -185,7 +188,7 @@ CREATE TABLE participante ( -- participante de uma conversa
 	perfil					INT					NOT NULL	DEFAULT (1),
 	CONSTRAINT pk_participante PRIMARY KEY (id),
 	CONSTRAINT fk_participante_conversa FOREIGN KEY (conversa) REFERENCES conversa (id),
-	CONSTRAINT fk_participante_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id)
+	CONSTRAINT fk_participante_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id),
 	CONSTRAINT fk_participante_perfil FOREIGN KEY (perfil) REFERENCES perfil (id)
 );
 
