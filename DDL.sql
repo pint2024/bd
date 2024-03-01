@@ -90,7 +90,7 @@ CREATE TABLE atividade (
 	imagem					VARCHAR(500),
 	topico					INT					NOT NULL,
 	revisao					INT,
-	utilizador				INT,
+	utilizador				INT					NOT NULL,
 	CONSTRAINT pk_atividade PRIMARY KEY (id),
 	CONSTRAINT fk_atividade_topico FOREIGN KEY (topico) REFERENCES topico (id),
 	CONSTRAINT fk_atividade_revisao FOREIGN KEY (revisao) REFERENCES revisao (id),
