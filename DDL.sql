@@ -33,6 +33,7 @@ CREATE TABLE utilizador (
 	sobrenome				VARCHAR(100)		NOT NULL,
 	email					VARCHAR(100)		NOT NULL	UNIQUE,
 	senha					VARCHAR(500)		NOT NULL,
+	verificada				BOOLEAN				NOT NULL	DEFAULT (TRUE),
 	imagem					VARCHAR(500),
 	linkedin				VARCHAR(500),
 	instagram				VARCHAR(500),
