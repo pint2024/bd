@@ -151,9 +151,9 @@ INSERT INTO participante (conversa, utilizador, perfil) VALUES
 	(5, 1, 2), (5, 2, 1), (5, 3, 1), (5, 4, 1), (5, 5, 1);
 
 
-INSERT INTO mensagem (mensagem, participante) VALUES
-	('ola', 1), ('ola', 2), ('ola', 3), ('ola', 4), ('ola', 5),
-	('ola', 6), ('ola', 7), ('ola', 8), ('ola', 9), ('ola', 10),
-	('ola', 11), ('ola', 12), ('ola', 13), ('ola', 14), ('ola', 15),
-	('ola', 16), ('ola', 17), ('ola', 18), ('ola', 19), ('ola', 20),
-	('ola', 21), ('ola', 22), ('ola', 23), ('ola', 24), ('ola', 25);
+INSERT INTO mensagem (mensagem, participante, conversa) VALUES
+	('ola', 1, 1), ('ola', 2, 1), ('ola', 3, 1), ('ola', 4, 1), ('ola', 5, 1),
+	('ola', 6, 2), ('ola', 7, 2), ('ola', 8, 2), ('ola', 9, 2), ('ola', 10, 2),
+	('ola', 11, 3), ('ola', 12, 3), ('ola', 13, 3), ('ola', 14, 3), ('ola', 15, 3),
+	('ola', 16, 4), ('ola', 17, 4), ('ola', 18, 4), ('ola', 19, 4), ('ola', 20, 4),
+	('ola', 21, 5), ('ola', 22, 5), ('ola', 23, 5), ('ola', 24, 5), ('ola', 25, 5);

@@ -199,6 +199,8 @@ CREATE TABLE mensagem ( -- mensagem de participante
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
 	mensagem				VARCHAR(100)		NOT NULL,
 	participante			INT					NOT NULL,
+	conversa				INT					NOT NULL,
 	CONSTRAINT pk_mensagem PRIMARY KEY (id),
-	CONSTRAINT fk_mensagem_participante FOREIGN KEY (participante) REFERENCES participante (id)
+	CONSTRAINT fk_mensagem_participante FOREIGN KEY (participante) REFERENCES participante (id),
+	CONSTRAINT fk_mensagem_conversa FOREIGN KEY (conversa) REFERENCES conversa (id)
 );
