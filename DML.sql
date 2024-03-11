@@ -152,8 +152,8 @@ INSERT INTO participante (conversa, utilizador, perfil) VALUES
 
 
 INSERT INTO mensagem (mensagem, participante, conversa) VALUES
-	('ola', 1, 1), ('ola', 2, 1), ('ola', 3, 1), ('ola', 4, 1), ('ola', 5, 1),
-	('ola', 6, 2), ('ola', 7, 2), ('ola', 8, 2), ('ola', 9, 2), ('ola', 10, 2),
-	('ola', 11, 3), ('ola', 12, 3), ('ola', 13, 3), ('ola', 14, 3), ('ola', 15, 3),
-	('ola', 16, 4), ('ola', 17, 4), ('ola', 18, 4), ('ola', 19, 4), ('ola', 20, 4),
-	('ola', 21, 5), ('ola', 22, 5), ('ola', 23, 5), ('ola', 24, 5), ('ola', 25, 5);
+	('ola', 1, 1), ('ola rei', 2, 1), ('joao é gay', 3, 1), ('concordo', 4, 1), ('vtf daniel', 5, 1),
+	('ola', 6, 2), ('ola rei', 7, 2), ('joao é gay', 8, 2), ('concordo', 9, 2), ('vtf daniel', 10, 2),
+	('ola', 11, 3), ('ola rei', 12, 3), ('joao é gay', 13, 3), ('concordo', 14, 3), ('vtf daniel', 15, 3),
+	('ola', 16, 4), ('ola rei', 17, 4), ('joao é gay', 18, 4), ('concordo', 19, 4), ('vtf daniel', 20, 4),
+	('ola', 21, 5), ('ola rei', 22, 5), ('joao é gay', 23, 5), ('concordo', 24, 5), ('vtf daniel', 25, 5);
