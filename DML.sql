@@ -136,11 +136,11 @@ INSERT INTO denuncia (titulo, motivo, atividade, utilizador) VALUES
 
 
 INSERT INTO conversa (titulo, descricao, topico) VALUES
-	('TrabalhosEscolinha', 'Os reis', 1),
+	('PDM', 'PDM', 1),
 	('EI', 'Curso de Engenharia Informática', 2),
 	('ES @ ESTGV', 'Discord para as disciplinas de Engenharia de Software', 3),
-	('Reis', 'Os reis versão barata', 4),
-	('Ciganos', 'Os ciganos', 5);
+	('PINT', 'Projeto Integrado', 4),
+	('EGE', 'EGE', 5);
 
 
 INSERT INTO participante (conversa, utilizador, perfil) VALUES
@@ -152,8 +152,8 @@ INSERT INTO participante (conversa, utilizador, perfil) VALUES
 
 
 INSERT INTO mensagem (mensagem, participante, conversa) VALUES
-	('ola', 1, 1), ('ola rei', 2, 1), ('joao é gay', 3, 1), ('concordo', 4, 1), ('vtf daniel', 5, 1),
-	('ola', 6, 2), ('ola rei', 7, 2), ('joao é gay', 8, 2), ('concordo', 9, 2), ('vtf daniel', 10, 2),
-	('ola', 11, 3), ('ola rei', 12, 3), ('joao é gay', 13, 3), ('concordo', 14, 3), ('vtf daniel', 15, 3),
-	('ola', 16, 4), ('ola rei', 17, 4), ('joao é gay', 18, 4), ('concordo', 19, 4), ('vtf daniel', 20, 4),
-	('ola', 21, 5), ('ola rei', 22, 5), ('joao é gay', 23, 5), ('concordo', 24, 5), ('vtf daniel', 25, 5);
+	('ola', 1, 1), ('ola rei', 2, 1), ('joao fixe', 3, 1), ('concordo', 4, 1), ('ola', 5, 1),
+	('ola', 6, 2), ('ola rei', 7, 2), ('joao fixe', 8, 2), ('concordo', 9, 2), ('ola', 10, 2),
+	('ola', 11, 3), ('ola rei', 12, 3), ('joao fixe', 13, 3), ('concordo', 14, 3), ('ola', 15, 3),
+	('ola', 16, 4), ('ola rei', 17, 4), ('joao fixe', 18, 4), ('concordo', 19, 4), ('ola', 20, 4),
+	('ola', 21, 5), ('ola rei', 22, 5), ('joao fixe', 23, 5), ('concordo', 24, 5), ('ola', 25, 5);
