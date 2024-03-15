@@ -1,13 +1,16 @@
 DROP TABLE IF EXISTS perfil CASCADE;
 DROP TABLE IF EXISTS utilizador CASCADE;
-DROP TABLE IF EXISTS categoria CASCADE;
 DROP TABLE IF EXISTS topico CASCADE;
+DROP TABLE IF EXISTS subtopico CASCADE;
 DROP TABLE IF EXISTS estado CASCADE;
-DROP TABLE IF EXISTS revisao CASCADE;
+DROP TABLE IF EXISTS formulario CASCADE;
+DROP TABLE IF EXISTS campo CASCADE;
+DROP TABLE IF EXISTS registo CASCADE;
+DROP TABLE IF EXISTS resposta CASCADE;
 DROP TABLE IF EXISTS atividade CASCADE;
 DROP TABLE IF EXISTS gosto CASCADE;
 DROP TABLE IF EXISTS comentario CASCADE;
-DROP TABLE IF EXISTS classificacao CASCADE;
+DROP TABLE IF EXISTS revisao CASCADE;
 DROP TABLE IF EXISTS notificacao CASCADE;
 DROP TABLE IF EXISTS denuncia CASCADE;
 DROP TABLE IF EXISTS conversa CASCADE;
@@ -15,9 +18,7 @@ DROP TABLE IF EXISTS participante CASCADE;
 DROP TABLE IF EXISTS mensagem CASCADE;
 
 
-
-
-CREATE TABLE perfil ( -- perfil do utilizador
+CREATE TABLE perfil (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
 	perfil					VARCHAR(50)			NOT NULL,
@@ -44,25 +45,25 @@ CREATE TABLE utilizador (
 );
 
 
-CREATE TABLE categoria ( -- categoria do topico
+CREATE TABLE topico (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	categoria				VARCHAR(50)			NOT NULL,
-	CONSTRAINT pk_categoria PRIMARY KEY (id)
+	topico					VARCHAR(50)			NOT NULL,
+	CONSTRAINT pk_topico PRIMARY KEY (id)
 );
 
 
-CREATE TABLE topico ( -- topico da ativdade
+CREATE TABLE subtopico (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
 	area					VARCHAR(50)			NOT NULL,
-	categoria				INT					NOT NULL,
-	CONSTRAINT pk_topico PRIMARY KEY (id),
-	CONSTRAINT fk_topico_categoria FOREIGN KEY (categoria) REFERENCES categoria (id)
+	topico					INT					NOT NULL,
+	CONSTRAINT pk_subtopico PRIMARY KEY (id),
+	CONSTRAINT fk_subtopico_topico FOREIGN KEY (topico) REFERENCES topico (id)
 );
 
 
-CREATE TABLE estado ( -- estado da revisão | 1 = Em espera; 2 = Aceite; 3 = Recusado
+CREATE TABLE estado (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
 	estado					VARCHAR(100)		NOT NULL,
@@ -70,13 +71,41 @@ CREATE TABLE estado ( -- estado da revisão | 1 = Em espera; 2 = Aceite; 3 = Rec
 );
 
 
-CREATE TABLE revisao ( -- revisão da atividade
+CREATE TABLE formulario (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	motivo					VARCHAR(500)		NOT NULL,
-	estado					INT					NOT NULL	DEFAULT (1),
-	CONSTRAINT pk_revisao PRIMARY KEY (id),
-	CONSTRAINT fk_revisao_estado FOREIGN KEY (estado) REFERENCES estado (id)
+	objetivo				VARCHAR(100)		NOT NULL,
+	CONSTRAINT pk_formulario PRIMARY KEY (id)
+);
+
+
+CREATE TABLE campo (
+	id						SERIAL				NOT NULL,
+	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
+	campo					VARCHAR(20)			NOT NULL,
+	CONSTRAINT pk_campo PRIMARY KEY (id)
+);
+
+
+CREATE TABLE registo (
+	id						SERIAL				NOT NULL,
+	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
+	titulo					VARCHAR(20)			NOT NULL,
+	campo					INT					NOT NULL,
+	formulario				INT					NOT NULL,
+	CONSTRAINT pk_registo PRIMARY KEY (id),
+	CONSTRAINT fk_registo_campo FOREIGN KEY (campo) REFERENCES campo (id),
+	CONSTRAINT fk_registo_formulario FOREIGN KEY (formulario) REFERENCES formulario (id)
+);
+
+
+CREATE TABLE resposta (
+	id						SERIAL				NOT NULL,
+	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
+	valor					VARCHAR(100)		NOT NULL,
+	registo					INT					NOT NULL,
+	CONSTRAINT pk_resposta PRIMARY KEY (id),
+	CONSTRAINT fk_resposta_registo FOREIGN KEY (registo) REFERENCES registo (id)
 );
 
 
@@ -89,14 +118,15 @@ CREATE TABLE atividade (
 	preco					MONEY,
 	data_evento				TIMESTAMP,
 	imagem					VARCHAR(500),
-	topico					INT					NOT NULL,
-	revisao					INT,
+	formulario				INT,
+	subtopico				INT					NOT NULL,
 	utilizador				INT					NOT NULL,
 	CONSTRAINT pk_atividade PRIMARY KEY (id),
-	CONSTRAINT fk_atividade_topico FOREIGN KEY (topico) REFERENCES topico (id),
-	CONSTRAINT fk_atividade_revisao FOREIGN KEY (revisao) REFERENCES revisao (id),
+	CONSTRAINT fk_atividade_formulario FOREIGN KEY (formulario) REFERENCES formulario (id),
+	CONSTRAINT fk_atividade_subtopico FOREIGN KEY (subtopico) REFERENCES subtopico (id),
 	CONSTRAINT fk_atividade_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id)
 );
+
 
 
 CREATE TABLE gosto (
@@ -122,51 +152,58 @@ CREATE TABLE comentario ( -- comentario da atividade
 );
 
 
-CREATE TABLE classificacao ( -- classificacao da atividade
+CREATE TABLE revisao (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	classificacao			SMALLINT			NOT NULL,
-	atividade				INT					NOT NULL,
-	utilizador				INT					NOT NULL,
-	CONSTRAINT pk_classificacao PRIMARY KEY (id),
-	CONSTRAINT fk_classificacao_atividade FOREIGN KEY (atividade) REFERENCES atividade (id),
-	CONSTRAINT fk_classificacao_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id),
-	CONSTRAINT ck_classificacao CHECK (classificacao >= 0 AND classificacao <= 10)
+	motivo					VARCHAR(500)		NOT NULL,
+	estado					INT					NOT NULL	DEFAULT (1),
+	atividade				INT,
+	comentario				INT,
+	CONSTRAINT pk_revisao PRIMARY KEY (id),
+	CONSTRAINT fk_revisao_estado FOREIGN KEY (estado) REFERENCES estado (id),
+	CONSTRAINT fk_revisao_atividade FOREIGN KEY (atividade) REFERENCES atividade (id),
+	CONSTRAINT fk_revisao_comentario FOREIGN KEY (comentario) REFERENCES comentario (id),
+	CONSTRAINT ck_revisao_exclusividade CHECK (
+		(atividade IS NOT NULL AND comentario IS NULL) OR
+		(atividade IS NULL AND comentario IS NOT NULL))
 );
 
 
 CREATE TABLE notificacao (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	visualizado				BOOLEAN				NOT NULL	DEFAULT (FALSE),
 	titulo					VARCHAR(100)		NOT NULL,
 	descricao				VARCHAR(500)		NOT NULL,
 	utilizador				INT					NOT NULL,
+	visualizado				BOOLEAN				NOT NULL	DEFAULT (FALSE),
 	atividade				INT,
 	comentario				INT,
-	revisao					INT,
 	CONSTRAINT pk_notificacao PRIMARY KEY (id),
 	CONSTRAINT fk_notificacao_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id),
 	CONSTRAINT fk_notificacao_atividade FOREIGN KEY (atividade) REFERENCES atividade (id),
 	CONSTRAINT fk_notificacao_comentario FOREIGN KEY (comentario) REFERENCES comentario (id),
-	CONSTRAINT fk_notificacao_revisao FOREIGN KEY (revisao) REFERENCES revisao (id),
 	CONSTRAINT ck_notificacao_exclusividade CHECK (
-		(atividade IS NOT NULL AND comentario IS NULL AND revisao IS NULL) OR
-		(atividade IS NULL AND comentario IS NOT NULL AND revisao IS NULL) OR
-		(atividade IS NULL AND comentario IS NULL AND revisao IS NOT NULL))
+		(atividade IS NOT NULL AND comentario IS NULL) OR
+		(atividade IS NULL AND comentario IS NOT NULL) OR
+		(atividade IS NULL AND comentario IS NULL))
 );
 
 
 CREATE TABLE denuncia (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	titulo					VARCHAR(100)		NOT NULL,
 	motivo					VARCHAR(500)		NOT NULL,
-	atividade				INT					NOT NULL,
-	utilizador				INT					NOT NULL,
+	atividade				INT,
+	comentario				INT,
+	utilizador				INT,
 	CONSTRAINT pk_denuncia PRIMARY KEY (id),
 	CONSTRAINT fk_denuncia_atividade FOREIGN KEY (atividade) REFERENCES atividade(id),
-	CONSTRAINT fk_denuncia_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id)
+	CONSTRAINT fk_denuncia_comentario FOREIGN KEY (comentario) REFERENCES comentario(id),
+	CONSTRAINT fk_denuncia_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id),
+	CONSTRAINT ck_denuncia_exclusividade CHECK (
+		(atividade IS NOT NULL AND comentario IS NULL AND utilizador IS NULL) OR
+		(atividade IS NULL AND comentario IS NOT NULL AND utilizador IS NULL) OR
+		(atividade IS NULL AND comentario IS NULL AND utilizador IS NOT NULL))
 );
 
 
@@ -175,9 +212,9 @@ CREATE TABLE conversa (
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
 	titulo					VARCHAR(100)		NOT NULL,
 	descricao				VARCHAR(500)		NOT NULL,
-	topico					INT					NOT NULL,
+	subtopico				INT					NOT NULL,
 	CONSTRAINT pk_conversa PRIMARY KEY (id),
-	CONSTRAINT fk_conversa_topico FOREIGN KEY (topico) REFERENCES topico (id)
+	CONSTRAINT fk_conversa_subtopico FOREIGN KEY (subtopico) REFERENCES subtopico (id)
 );
 
 
@@ -194,7 +231,7 @@ CREATE TABLE participante ( -- participante de uma conversa
 );
 
 
-CREATE TABLE mensagem ( -- mensagem de participante 
+CREATE TABLE mensagem (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
 	mensagem				VARCHAR(100)		NOT NULL,

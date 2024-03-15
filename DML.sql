@@ -12,7 +12,7 @@ INSERT INTO utilizador (tag, nome, sobrenome, email, senha, perfil) VALUES
 	('@mmarques', 'Miguel', 'Marques', 'miguel.marques@email.com', 'senha123', 2);
 
 
-INSERT INTO categoria (categoria) VALUES
+INSERT INTO topico (topico) VALUES
 	('Sáude'),	
 	('Desporto'),	
 	('Formação'),	
@@ -22,7 +22,7 @@ INSERT INTO categoria (categoria) VALUES
 	('Lazer');
 
 
-INSERT INTO topico (area, categoria) VALUES
+INSERT INTO subtopico (area, topico) VALUES
 	('Hospitais', 1),
 	('Clinicas', 1),
 	('Centro de Saude', 1),
@@ -57,30 +57,55 @@ INSERT INTO estado (estado) VALUES
 	('Recusado');
 
 
-INSERT INTO revisao (motivo, estado) VALUES
-	('Revisão de conteúdo', 2),
-	('Ajustes necessários', 3),
-	('Conteúdo não adequado', 3),
-	('Revisão padrão', 2),
-	('Aprovação rápida', 2),
-	('Revisão de conteúdo', 2),
-	('Ajustes necessários', 3),
-	('Conteúdo não adequado', 3),
-	('Revisão padrão', 2),
-	('Aprovação rápida', 2);
+INSERT INTO formulario (objetivo) VALUES
+	('Form 1'),
+	('Form 2'),
+	('Form 3'),
+	('Form 4'),
+	('Form 5');
 
 
-INSERT INTO atividade (titulo, descricao, endereco, preco, data_evento, imagem, topico, revisao, utilizador) VALUES
+INSERT INTO campo (campo) VALUES
+	('TextBox'),
+	('CheckBox'),
+	('Radio');
+
+INSERT INTO registo (titulo, campo, formulario) VALUES
+	('Titulo', 1, 1),
+	('Titulo', 2, 2),
+	('Titulo', 3, 3),
+	('Titulo', 1, 3),
+	('Titulo', 3, 4),
+	('Titulo', 2, 4),
+	('Titulo', 1, 5);
+
+
+INSERT INTO resposta (valor, registo) VALUES
+	('Ola', 1),
+	('Ola', 1),
+	('Ola', 1),
+	('2', 2),
+	('true', 3),
+	('false', 3),
+	('true', 4),
+	('false', 5),
+	('true', 5),
+	('6', 6),
+	('Ola1', 7),
+	('Ola2', 7);
+
+
+INSERT INTO atividade (titulo, descricao, endereco, preco, data_evento, imagem, formulario, subtopico, utilizador) VALUES
 	('Workshop de React', 'Aprenda os conceitos fundamentais do React.', 'Rua da Tecnologia, 123', 20.00, '2024-03-15 18:00:00', '/path/imagem', 1, 1, 1),
-	('(2) Workshop de React', 'Aprenda os conceitos fundamentais do React.', 'Rua da Tecnologia, 123', 20.00, '2024-03-15 18:00:00', '/path/imagem', 20, 2, 1),
-	('Exposição de Arte Abstrata', 'Explore a beleza da arte abstrata com diversas obras.', 'Galeria de Arte Moderna, 456', 0.00, '2024-04-10 14:30:00', '/path/imagem', 2, 3, 2),
-	('(2) Exposição de Arte Abstrata', 'Explore a beleza da arte abstrata com diversas obras.', 'Galeria de Arte Moderna, 456', 0.00, '2024-04-10 14:30:00', '/path/imagem', 19, 4, 2),
-	('Partida de Futebol Amistosa', 'Junte-se a nós para uma partida descontraída.', 'Campo de Futebol Municipal', 5.00, '2024-03-20 16:00:00', '/path/imagem', 3, 5, 3),
-	('(2) Partida de Futebol Amistosa', 'Junte-se a nós para uma partida descontraída.', 'Campo de Futebol Municipal', 5.00, '2024-03-20 16:00:00', '/path/imagem', 18, 6, 3),
-	('Palestra sobre IA', 'Entenda as últimas tendências em inteligência artificial.', 'Centro de Conferências, 789', 15.00, '2024-03-25 19:30:00', '/path/imagem', 4, 7, 4),
-	('(2) Palestra sobre IA', 'Entenda as últimas tendências em inteligência artificial.', 'Centro de Conferências, 789', 15.00, '2024-03-25 19:30:00', '/path/imagem', 17, 8, 4),
-	('Workshop de Gestão Ágil', 'Aprenda práticas ágeis para gerenciar projetos eficientemente.', 'Sala de Treinamento, 101', 30.00, '2024-04-05 10:00:00', '/path/imagem', 5, 9, 5),
-	('(2) Workshop de Gestão Ágil', 'Aprenda práticas ágeis para gerenciar projetos eficientemente.', 'Sala de Treinamento, 101', 30.00, '2024-04-05 10:00:00', '/path/imagem', 16, 10, 5);
+	('(2) Workshop de React', 'Aprenda os conceitos fundamentais do React.', 'Rua da Tecnologia, 123', 20.00, '2024-03-15 18:00:00', '/path/imagem', 2, 20, 1),
+	('Exposição de Arte Abstrata', 'Explore a beleza da arte abstrata com diversas obras.', 'Galeria de Arte Moderna, 456', 0.00, '2024-04-10 14:30:00', '/path/imagem', 3, 2, 2),
+	('(2) Exposição de Arte Abstrata', 'Explore a beleza da arte abstrata com diversas obras.', 'Galeria de Arte Moderna, 456', 0.00, '2024-04-10 14:30:00', '/path/imagem', 4, 19, 2),
+	('Partida de Futebol Amistosa', 'Junte-se a nós para uma partida descontraída.', 'Campo de Futebol Municipal', 5.00, '2024-03-20 16:00:00', '/path/imagem', 5, 3, 3),
+	('(2) Partida de Futebol Amistosa', 'Junte-se a nós para uma partida descontraída.', 'Campo de Futebol Municipal', 5.00, '2024-03-20 16:00:00', '/path/imagem', 5, 18, 3),
+	('Palestra sobre IA', 'Entenda as últimas tendências em inteligência artificial.', 'Centro de Conferências, 789', 15.00, '2024-03-25 19:30:00', '/path/imagem', 4, 4, 4),
+	('(2) Palestra sobre IA', 'Entenda as últimas tendências em inteligência artificial.', 'Centro de Conferências, 789', 15.00, '2024-03-25 19:30:00', '/path/imagem', 3, 17, 4),
+	('Workshop de Gestão Ágil', 'Aprenda práticas ágeis para gerenciar projetos eficientemente.', 'Sala de Treinamento, 101', 30.00, '2024-04-05 10:00:00', '/path/imagem', 2, 5, 5),
+	('(2) Workshop de Gestão Ágil', 'Aprenda práticas ágeis para gerenciar projetos eficientemente.', 'Sala de Treinamento, 101', 30.00, '2024-04-05 10:00:00', '/path/imagem', 1, 16, 5);
 
 
 INSERT INTO gosto (atividade, utilizador) VALUES
@@ -109,33 +134,35 @@ INSERT INTO comentario (comentario, atividade, utilizador) VALUES
 	('(2) Excelentes dicas de gestão ágil, obrigado!', 10, 1);
 
 
-INSERT INTO classificacao (classificacao, atividade, utilizador) VALUES
-	(9, 1, 1),
-	(8, 2, 2),
-	(7, 3, 3),
-	(10, 4, 4),
-	(6, 5, 5),
-	(6, 6, 5),
-	(6, 7, 4),
-	(6, 8, 3),
-	(6, 9, 2),
-	(6, 10, 1);
+INSERT INTO revisao (motivo, estado, atividade, comentario) VALUES
+	('Revisão de conteúdo', 2, 1, NULL),
+	('Ajustes necessários', 3, NULL, 2),
+	('Conteúdo não adequado', 3, 3, NULL),
+	('Revisão padrão', 2, NULL, 4),
+	('Aprovação rápida', 2, 5, NULL),
+	('Revisão de conteúdo', 2, NULL, 6),
+	('Ajustes necessários', 3, 7, NULL),
+	('Conteúdo não adequado', 3, NULL, 8),
+	('Revisão padrão', 2, 9, NULL),
+	('Aprovação rápida', 2, NULL, 10),
+	('Aprovação rápida', 2, 10, NULL);
 
 
-INSERT INTO notificacao (visualizado, utilizador, titulo, descricao, atividade, comentario, revisao) VALUES
-	(FALSE, 1, 'Nova Atividade', 'Workshop de React disponível.', 1, NULL, NULL),
-	(FALSE, 2, 'Comentário Recebido', 'Seu comentário foi apreciado na exposição de arte.', NULL, 2, NULL),
-	(FALSE, 3, 'Classificação Recebida', 'Sua palestra sobre IA recebeu uma classificação alta.', 4, NULL, NULL),
-	(FALSE, 4, 'Próximo Jogo', 'A partida de futebol amistosa está marcada para domingo.', NULL, 1, NULL),
-	(FALSE, 5, 'Feedback Recebido', 'Seu workshop de gestão ágil recebeu elogios.', 5, NULL, NULL);
+INSERT INTO notificacao (titulo, descricao, utilizador, visualizado, atividade, comentario) VALUES
+	('Nova Atividade', 'Workshop de React disponível.', 1, FALSE, 1, NULL),
+	('Comentário Recebido', 'Seu comentário foi apreciado na exposição de arte.', 2, FALSE, NULL, 2),
+	('Classificação Recebida', 'Sua palestra sobre IA recebeu uma classificação alta.', 3, FALSE, 4, NULL),
+	('Próximo Jogo', 'A partida de futebol amistosa está marcada para domingo.', 4, FALSE, NULL, 1),
+	('Feedback Recebido', 'Seu workshop de gestão ágil recebeu elogios.', 5, FALSE, 5, NULL);
 
 
-INSERT INTO denuncia (titulo, motivo, atividade, utilizador) VALUES
-	('Conteúdo Inadequado', 'Denúncia de atividade ofensiva.', 2, 5),
-	('Comentário Inapropriado', 'Denúncia de comentário inadequado.', 1, 4);
+INSERT INTO denuncia (motivo, atividade, comentario, utilizador) VALUES
+	('Denúncia de comentário.', NULL, 1, NULL),
+	('Denúncia de utilizador.', NULL, NULL, 5),
+	('Denúncia de atividade.', 4, NULL, NULL);
 
 
-INSERT INTO conversa (titulo, descricao, topico) VALUES
+INSERT INTO conversa (titulo, descricao, subtopico) VALUES
 	('PDM', 'PDM', 1),
 	('EI', 'Curso de Engenharia Informática', 2),
 	('ES @ ESTGV', 'Discord para as disciplinas de Engenharia de Software', 3),
