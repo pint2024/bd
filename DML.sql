@@ -57,7 +57,7 @@ INSERT INTO estado (estado) VALUES
 	('Recusado');
 
 
-INSERT INTO formulario (objetivo) VALUES
+INSERT INTO formulario (descricao) VALUES
 	('Form 1'),
 	('Form 2'),
 	('Form 3'),
@@ -80,19 +80,19 @@ INSERT INTO registo (titulo, campo, formulario) VALUES
 	('Titulo', 1, 5);
 
 
-INSERT INTO resposta (valor, registo) VALUES
-	('Ola', 1),
-	('Ola', 1),
-	('Ola', 1),
-	('2', 2),
-	('true', 3),
-	('false', 3),
-	('true', 4),
-	('false', 5),
-	('true', 5),
-	('6', 6),
-	('Ola1', 7),
-	('Ola2', 7);
+INSERT INTO resposta (valor, registo, utilizador) VALUES
+	('Ola', 1, 1),
+	('Ola', 1, 2),
+	('Ola', 1, 3),
+	('2', 2, 4),
+	('true', 3, 5),
+	('false', 3, 6),
+	('true', 4, 1),
+	('false', 5, 2),
+	('true', 5, 3),
+	('6', 6, 4),
+	('Ola1', 7, 5),
+	('Ola2', 7, 6);
 
 
 INSERT INTO atividade (titulo, descricao, endereco, preco, data_evento, imagem, formulario, subtopico, utilizador) VALUES
@@ -148,12 +148,12 @@ INSERT INTO revisao (motivo, estado, atividade, comentario) VALUES
 	('Aprovação rápida', 2, 10, NULL);
 
 
-INSERT INTO notificacao (titulo, descricao, utilizador, visualizado, atividade, comentario) VALUES
-	('Nova Atividade', 'Workshop de React disponível.', 1, FALSE, 1, NULL),
-	('Comentário Recebido', 'Seu comentário foi apreciado na exposição de arte.', 2, FALSE, NULL, 2),
-	('Classificação Recebida', 'Sua palestra sobre IA recebeu uma classificação alta.', 3, FALSE, 4, NULL),
-	('Próximo Jogo', 'A partida de futebol amistosa está marcada para domingo.', 4, FALSE, NULL, 1),
-	('Feedback Recebido', 'Seu workshop de gestão ágil recebeu elogios.', 5, FALSE, 5, NULL);
+INSERT INTO notificacao (titulo, descricao, visualizado, atividade, comentario) VALUES
+	('Nova Atividade', 'Workshop de React disponível.', FALSE, 1, NULL),
+	('Comentário Recebido', 'Seu comentário foi apreciado na exposição de arte.', FALSE, NULL, 2),
+	('Classificação Recebida', 'Sua palestra sobre IA recebeu uma classificação alta.', FALSE, 4, NULL),
+	('Próximo Jogo', 'A partida de futebol amistosa está marcada para domingo.', FALSE, NULL, 1),
+	('Feedback Recebido', 'Seu workshop de gestão ágil recebeu elogios.', FALSE, 5, NULL);
 
 
 INSERT INTO denuncia (motivo, atividade, comentario, utilizador) VALUES

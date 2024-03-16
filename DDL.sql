@@ -34,7 +34,7 @@ CREATE TABLE utilizador (
 	sobrenome				VARCHAR(100)		NOT NULL,
 	email					VARCHAR(100)		NOT NULL	UNIQUE,
 	senha					VARCHAR(500)		NOT NULL,
-	verificada				BOOLEAN				NOT NULL	DEFAULT (TRUE),
+	verificado				BOOLEAN				NOT NULL	DEFAULT (TRUE),
 	imagem					VARCHAR(500),
 	linkedin				VARCHAR(500),
 	instagram				VARCHAR(500),
@@ -74,7 +74,7 @@ CREATE TABLE estado (
 CREATE TABLE formulario (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	objetivo				VARCHAR(100)		NOT NULL,
+	descricao				VARCHAR(100)		NOT NULL,
 	CONSTRAINT pk_formulario PRIMARY KEY (id)
 );
 
@@ -104,8 +104,10 @@ CREATE TABLE resposta (
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
 	valor					VARCHAR(100)		NOT NULL,
 	registo					INT					NOT NULL,
+	utilizador				INT					NOT NULL,
 	CONSTRAINT pk_resposta PRIMARY KEY (id),
-	CONSTRAINT fk_resposta_registo FOREIGN KEY (registo) REFERENCES registo (id)
+	CONSTRAINT fk_resposta_registo FOREIGN KEY (registo) REFERENCES registo (id),
+	CONSTRAINT fk_resposta_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id)
 );
 
 
@@ -140,7 +142,7 @@ CREATE TABLE gosto (
 );
 
 
-CREATE TABLE comentario ( -- comentario da atividade
+CREATE TABLE comentario (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
 	comentario				VARCHAR(500)		NOT NULL,
@@ -174,12 +176,10 @@ CREATE TABLE notificacao (
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
 	titulo					VARCHAR(100)		NOT NULL,
 	descricao				VARCHAR(500)		NOT NULL,
-	utilizador				INT					NOT NULL,
 	visualizado				BOOLEAN				NOT NULL	DEFAULT (FALSE),
 	atividade				INT,
 	comentario				INT,
 	CONSTRAINT pk_notificacao PRIMARY KEY (id),
-	CONSTRAINT fk_notificacao_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id),
 	CONSTRAINT fk_notificacao_atividade FOREIGN KEY (atividade) REFERENCES atividade (id),
 	CONSTRAINT fk_notificacao_comentario FOREIGN KEY (comentario) REFERENCES comentario (id),
 	CONSTRAINT ck_notificacao_exclusividade CHECK (
@@ -218,7 +218,7 @@ CREATE TABLE conversa (
 );
 
 
-CREATE TABLE participante ( -- participante de uma conversa
+CREATE TABLE participante (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
 	conversa				INT					NOT NULL,
