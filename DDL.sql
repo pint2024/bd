@@ -115,7 +115,7 @@ CREATE TABLE atividade (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
 	titulo					VARCHAR(100)		NOT NULL,
-	descricao				VARCHAR(500)		NOT NULL,
+	descricao				TEXT				NOT NULL,
 	endereco				VARCHAR(500),
 	preco					MONEY,
 	data_evento				TIMESTAMP,
