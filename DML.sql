@@ -134,6 +134,19 @@ INSERT INTO comentario (comentario, atividade, utilizador) VALUES
 	('(2) Excelentes dicas de gestão ágil, obrigado!', 10, 1);
 
 
+INSERT INTO subcomentario (subcomentario, comentario, utilizador) VALUES
+	('[subcomentario] Ótimo workshop! Recomendo a todos.', 1, 1),
+	('[subcomentario] Adorei as cores nas pinturas!', 2, 2),
+	('[subcomentario] Partida emocionante, estarei lá na próxima!', 3, 3),
+	('[subcomentario] Palestra esclarecedora, parabéns ao palestrante.', 4, 4),
+	('[subcomentario] Excelentes dicas de gestão ágil, obrigado!', 5, 5),
+	('[subcomentario] (2) Ótimo workshop! Recomendo a todos.', 6, 5),
+	('[subcomentario] (2) Adorei as cores nas pinturas!', 7, 4),
+	('[subcomentario] (2) Partida emocionante, estarei lá na próxima!', 8, 3),
+	('[subcomentario] (2) Palestra esclarecedora, parabéns ao palestrante.', 9, 2),
+	('[subcomentario] (2) Excelentes dicas de gestão ágil, obrigado!', 10, 1);
+
+
 INSERT INTO revisao (motivo, estado, atividade, comentario) VALUES
 	('Revisão de conteúdo', 2, 1, NULL),
 	('Ajustes necessários', 3, NULL, 2),

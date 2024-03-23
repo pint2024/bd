@@ -10,6 +10,7 @@ DROP TABLE IF EXISTS resposta CASCADE;
 DROP TABLE IF EXISTS atividade CASCADE;
 DROP TABLE IF EXISTS gosto CASCADE;
 DROP TABLE IF EXISTS comentario CASCADE;
+DROP TABLE IF EXISTS subcomentario CASCADE;
 DROP TABLE IF EXISTS revisao CASCADE;
 DROP TABLE IF EXISTS notificacao CASCADE;
 DROP TABLE IF EXISTS denuncia CASCADE;
@@ -145,12 +146,24 @@ CREATE TABLE gosto (
 CREATE TABLE comentario (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	comentario				VARCHAR(500)		NOT NULL,
+	comentario				VARCHAR(150)		NOT NULL,
 	atividade				INT					NOT NULL,
 	utilizador				INT					NOT NULL,
 	CONSTRAINT pk_comentario PRIMARY KEY (id),
 	CONSTRAINT fk_comentario_atividade FOREIGN KEY (atividade) REFERENCES atividade (id),
 	CONSTRAINT fk_comentario_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id)
+);
+
+
+CREATE TABLE subcomentario (
+	id						SERIAL				NOT NULL,
+	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
+	subcomentario			VARCHAR(150)		NOT NULL,
+	comentario				INT					NOT NULL,
+	utilizador				INT					NOT NULL,
+	CONSTRAINT pk_subcomentario PRIMARY KEY (id),
+	CONSTRAINT fk_subcomentario_comentario FOREIGN KEY (comentario) REFERENCES comentario (id),
+	CONSTRAINT fk_subcomentario_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id)
 );
 
 
