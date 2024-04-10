@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS perfil CASCADE;
+DROP TABLE IF EXISTS sede CASCADE;
 DROP TABLE IF EXISTS utilizador CASCADE;
 DROP TABLE IF EXISTS topico CASCADE;
 DROP TABLE IF EXISTS subtopico CASCADE;
@@ -8,6 +9,7 @@ DROP TABLE IF EXISTS campo CASCADE;
 DROP TABLE IF EXISTS registo CASCADE;
 DROP TABLE IF EXISTS resposta CASCADE;
 DROP TABLE IF EXISTS atividade CASCADE;
+DROP TABLE IF EXISTS documento CASCADE;
 DROP TABLE IF EXISTS gosto CASCADE;
 DROP TABLE IF EXISTS comentario CASCADE;
 DROP TABLE IF EXISTS subcomentario CASCADE;
@@ -27,6 +29,14 @@ CREATE TABLE perfil (
 );
 
 
+CREATE TABLE sede (
+	id						SERIAL				NOT NULL,
+	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
+	sede					VARCHAR(50)			NOT NULL,
+	CONSTRAINT pk_sede PRIMARY KEY (id)
+);
+
+
 CREATE TABLE utilizador (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
@@ -41,8 +51,10 @@ CREATE TABLE utilizador (
 	instagram				VARCHAR(500),
 	facebook				VARCHAR(500),
 	perfil					INT					NOT NULL	DEFAULT (1),
+	sede					INT					NOT NULL,
 	CONSTRAINT pk_utilizador PRIMARY KEY (id),
-	CONSTRAINT fk_utilizador_perfil FOREIGN KEY (perfil) REFERENCES perfil (id)
+	CONSTRAINT fk_utilizador_perfil FOREIGN KEY (perfil) REFERENCES perfil (id),
+	CONSTRAINT fk_utilizador_sede FOREIGN KEY (sede) REFERENCES sede (id)
 );
 
 
@@ -118,7 +130,6 @@ CREATE TABLE atividade (
 	titulo					VARCHAR(100)		NOT NULL,
 	descricao				TEXT				NOT NULL,
 	endereco				VARCHAR(500),
-	preco					MONEY,
 	data_evento				TIMESTAMP,
 	imagem					VARCHAR(500),
 	formulario				INT,
@@ -130,6 +141,15 @@ CREATE TABLE atividade (
 	CONSTRAINT fk_atividade_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id)
 );
 
+
+CREATE TABLE documento (
+	id						SERIAL				NOT NULL,
+	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
+	documento				VARCHAR(500)		NOT NULL,
+	atividade				INT					NOT NULL,
+	CONSTRAINT pk_documento PRIMARY KEY (id),
+	CONSTRAINT fk_documento_atividade FOREIGN KEY (atividade) REFERENCES atividade (id)
+);
 
 
 CREATE TABLE gosto (
