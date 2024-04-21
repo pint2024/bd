@@ -37,6 +37,16 @@ CREATE TABLE sede (
 );
 
 
+CREATE TABLE interesse (
+	id						SERIAL				NOT NULL,
+	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
+	interesse				VARCHAR(50)			NOT NULL,
+	utilizador				INT					NOT NULL,
+	CONSTRAINT pk_interesse PRIMARY KEY (id),
+	CONSTRAINT fk_interesse_utilizador FOREIGN (utilizador) REFERENCES utilizador (id)
+);
+
+
 CREATE TABLE utilizador (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
@@ -84,43 +94,12 @@ CREATE TABLE estado (
 );
 
 
-CREATE TABLE formulario (
+CREATE TABLE album (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	descricao				VARCHAR(100)		NOT NULL,
-	CONSTRAINT pk_formulario PRIMARY KEY (id)
-);
-
-
-CREATE TABLE campo (
-	id						SERIAL				NOT NULL,
-	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	campo					VARCHAR(20)			NOT NULL,
-	CONSTRAINT pk_campo PRIMARY KEY (id)
-);
-
-
-CREATE TABLE registo (
-	id						SERIAL				NOT NULL,
-	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	titulo					VARCHAR(20)			NOT NULL,
-	campo					INT					NOT NULL,
-	formulario				INT					NOT NULL,
-	CONSTRAINT pk_registo PRIMARY KEY (id),
-	CONSTRAINT fk_registo_campo FOREIGN KEY (campo) REFERENCES campo (id),
-	CONSTRAINT fk_registo_formulario FOREIGN KEY (formulario) REFERENCES formulario (id)
-);
-
-
-CREATE TABLE resposta (
-	id						SERIAL				NOT NULL,
-	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	valor					VARCHAR(100)		NOT NULL,
-	registo					INT					NOT NULL,
-	utilizador				INT					NOT NULL,
-	CONSTRAINT pk_resposta PRIMARY KEY (id),
-	CONSTRAINT fk_resposta_registo FOREIGN KEY (registo) REFERENCES registo (id),
-	CONSTRAINT fk_resposta_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id)
+	descricao				VARCHAR(100),		NOT NULL,
+	imagem					VARCHAR(500),		NOT NULL,
+	CONSTRAINT pk_album PRIMARY KEY (id)
 );
 
 
@@ -129,16 +108,41 @@ CREATE TABLE atividade (
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
 	titulo					VARCHAR(100)		NOT NULL,
 	descricao				TEXT				NOT NULL,
-	endereco				VARCHAR(500),
-	data_evento				TIMESTAMP,
 	imagem					VARCHAR(500),
-	formulario				INT,
-	subtopico				INT					NOT NULL,
+	endereco				VARCHAR(500)		NOT NULL,
 	utilizador				INT					NOT NULL,
+	subtopico				INT					NOT NULL,
 	CONSTRAINT pk_atividade PRIMARY KEY (id),
-	CONSTRAINT fk_atividade_formulario FOREIGN KEY (formulario) REFERENCES formulario (id),
-	CONSTRAINT fk_atividade_subtopico FOREIGN KEY (subtopico) REFERENCES subtopico (id),
 	CONSTRAINT fk_atividade_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id)
+	CONSTRAINT fk_atividade_subtopico FOREIGN KEY (subtopico) REFERENCES subtopico (id),
+);
+
+
+CREATE TABLE espaco (
+	id						SERIAL				NOT NULL,
+	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
+	CONSTRAINT pk_espaco PRIMARY KEY (id)
+);
+
+
+CREATE TABLE evento (
+	id						SERIAL				NOT NULL,
+	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
+	data_evento				TIMESTAMP,
+	album					INT					NOT NULL,
+	CONSTRAINT pk_evento PRIMARY KEY (id)
+	CONSTRAINT fk_evento_album FOREIGN KEY (album) REFERENCES album (id)
+);
+
+
+CREATE TABLE participar (
+	id						SERIAL				NOT NULL,
+	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
+	evento					INT					NOT NULL,
+	utilizador				INT					NOT NULL,
+	CONSTRAINT pk_evento_interesados PRIMARY KEY (id),
+	CONSTRAINT fk_evento_interesados_evento FOREIGN KEY (evento) REFERENCES atividade (id),
+	CONSTRAINT fk_evento_interesados_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id)
 );
 
 
@@ -152,11 +156,12 @@ CREATE TABLE documento (
 );
 
 
-CREATE TABLE gosto (
+CREATE TABLE classificacao (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
 	atividade				INT					NOT NULL,
 	utilizador				INT					NOT NULL,
+	classificacao			SMALLINT			NOT NULL,
 	CONSTRAINT pk_gosto PRIMARY KEY (id),
 	CONSTRAINT fk_gosto_atividade FOREIGN KEY (atividade) REFERENCES atividade (id),
 	CONSTRAINT fk_gosto_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id)
@@ -212,13 +217,14 @@ CREATE TABLE notificacao (
 	visualizado				BOOLEAN				NOT NULL	DEFAULT (FALSE),
 	atividade				INT,
 	comentario				INT,
+	subcomentario			INT,
 	CONSTRAINT pk_notificacao PRIMARY KEY (id),
 	CONSTRAINT fk_notificacao_atividade FOREIGN KEY (atividade) REFERENCES atividade (id),
 	CONSTRAINT fk_notificacao_comentario FOREIGN KEY (comentario) REFERENCES comentario (id),
 	CONSTRAINT ck_notificacao_exclusividade CHECK (
-		(atividade IS NOT NULL AND comentario IS NULL) OR
-		(atividade IS NULL AND comentario IS NOT NULL) OR
-		(atividade IS NULL AND comentario IS NULL))
+		(atividade IS NOT NULL AND comentario IS NULL AND subcomentario IS NULL) OR
+		(atividade IS NULL AND comentario IS NOT NULL AND subcomentario IS NULL) OR
+		(atividade IS NULL AND comentario IS NULL AND subcomentario IS NOT NULL))
 );
 
 
@@ -229,6 +235,7 @@ CREATE TABLE denuncia (
 	atividade				INT,
 	comentario				INT,
 	utilizador				INT,
+	subcomentario			INT,
 	CONSTRAINT pk_denuncia PRIMARY KEY (id),
 	CONSTRAINT fk_denuncia_atividade FOREIGN KEY (atividade) REFERENCES atividade(id),
 	CONSTRAINT fk_denuncia_comentario FOREIGN KEY (comentario) REFERENCES comentario(id),
