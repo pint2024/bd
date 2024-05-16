@@ -1,21 +1,24 @@
 DROP TABLE IF EXISTS perfil CASCADE;
 DROP TABLE IF EXISTS centro CASCADE;
-DROP TABLE IF EXISTS interesse CASCADE;
 DROP TABLE IF EXISTS utilizador CASCADE;
 DROP TABLE IF EXISTS topico CASCADE;
 DROP TABLE IF EXISTS subtopico CASCADE;
+DROP TABLE IF EXISTS interesse CASCADE;
 DROP TABLE IF EXISTS estado CASCADE;
 DROP TABLE IF EXISTS album CASCADE;
-DROP TABLE IF EXISTS atividade CASCADE;
 DROP TABLE IF EXISTS espaco CASCADE;
+DROP TABLE IF EXISTS atividade CASCADE;
+DROP TABLE IF EXISTS recomendacao CASCADE;
 DROP TABLE IF EXISTS evento CASCADE;
+DROP TABLE IF EXISTS participante CASCADE;
+DROP TABLE IF EXISTS conteudo CASCADE;
 DROP TABLE IF EXISTS documento CASCADE;
-DROP TABLE IF EXISTS classificacao CASCADE;
 DROP TABLE IF EXISTS comentario CASCADE;
-DROP TABLE IF EXISTS subcomentario CASCADE;
+DROP TABLE IF EXISTS classificacao CASCADE;
 DROP TABLE IF EXISTS revisao CASCADE;
 DROP TABLE IF EXISTS notificacao CASCADE;
 DROP TABLE IF EXISTS denuncia CASCADE;
+
 
 
 CREATE TABLE perfil (
@@ -31,19 +34,6 @@ CREATE TABLE centro (
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
 	centro					VARCHAR(50)			NOT NULL,
 	CONSTRAINT pk_centro PRIMARY KEY (id)
-);
-
-
-CREATE TABLE interesse (
-	id						SERIAL				NOT NULL,
-	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	topico					INT					NOT NULL,
-	subtopico				INT					NOT NULL,
-	utilizador				INT					NOT NULL,
-	CONSTRAINT pk_interesse PRIMARY KEY (id),
-	CONSTRAINT fk_interesse_topico FOREIGN KEY (topico) REFERENCES topico (id),
-	CONSTRAINT fk_interesse_subtopico FOREIGN KEY (subtopico) REFERENCES subtopico (id),
-	CONSTRAINT fk_interesse_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id)
 );
 
 
@@ -87,6 +77,17 @@ CREATE TABLE subtopico (
 );
 
 
+CREATE TABLE interesse (
+	id						SERIAL				NOT NULL,
+	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
+	subtopico				INT					NOT NULL,
+	utilizador				INT					NOT NULL,
+	CONSTRAINT pk_interesse PRIMARY KEY (id),
+	CONSTRAINT fk_interesse_subtopico FOREIGN KEY (subtopico) REFERENCES subtopico (id),
+	CONSTRAINT fk_interesse_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id)
+);
+
+
 CREATE TABLE estado (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
@@ -98,9 +99,52 @@ CREATE TABLE estado (
 CREATE TABLE album (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	descricao				VARCHAR(100),		NOT NULL,
-	imagem					VARCHAR(500),		NOT NULL,
+	descricao				VARCHAR(100)		NOT NULL,
+	imagem					VARCHAR(500)		NOT NULL,
 	CONSTRAINT pk_album PRIMARY KEY (id)
+);
+
+
+/** CONTEUDOS **/
+CREATE TABLE espaco (
+	id						SERIAL				NOT NULL,
+	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
+	CONSTRAINT pk_espaco PRIMARY KEY (id)
+);
+
+
+CREATE TABLE atividade (
+	id						SERIAL				NOT NULL,
+	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
+	data_evento				TIMESTAMP			NOT NULL,
+	CONSTRAINT pk_atividade PRIMARY KEY (id)
+);
+
+
+CREATE TABLE recomendacao (
+	id						SERIAL				NOT NULL,
+	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
+	classificacao_lugar		SMALLINT			NOT NULL,
+	preco					MONEY				NOT NULL,
+	CONSTRAINT pk_recomendacao PRIMARY KEY (id)
+);
+
+
+CREATE TABLE evento (
+	id						SERIAL				NOT NULL,
+	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
+	data_evento				TIMESTAMP,
+	CONSTRAINT pk_evento PRIMARY KEY (id)
+);
+
+
+CREATE TABLE participante (
+	id						SERIAL				NOT NULL,
+	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
+	observacao				VARCHAR(200)		NOT NULL,
+	evento					INT,
+	atividade				INT,
+	CONSTRAINT pk_participante PRIMARY KEY (id)
 );
 
 
@@ -109,54 +153,23 @@ CREATE TABLE conteudo (
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
 	titulo					VARCHAR(100)		NOT NULL,
 	descricao				TEXT				NOT NULL,
-	imagem					VARCHAR(500),
+	imagem					VARCHAR(500)		NOT NULL,
 	endereco				VARCHAR(500)		NOT NULL,
 	utilizador				INT					NOT NULL,
 	subtopico				INT					NOT NULL,
+	album					INT					NOT NULL,
 	espaco					INT,
 	evento					INT,
-	CONSTRAINT pk_atividade PRIMARY KEY (id),
-	CONSTRAINT fk_atividade_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id),
-	CONSTRAINT fk_atividade_subtopico FOREIGN KEY (subtopico) REFERENCES subtopico (id),
-	CONSTRAINT fk_atividade_espaco FOREIGN KEY (espaco) REFERENCES espaco (id),
-	CONSTRAINT fk_atividade_evento FOREIGN KEY (evento) REFERENCES evento (id)
-);
-
-
-CREATE TABLE espaco (
-	id						SERIAL				NOT NULL,
-	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	CONSTRAINT pk_espaco PRIMARY KEY (id)
-);
-
-CREATE TABLE atividade (
-	id						SERIAL				NOT NULL,
-	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	CONSTRAINT pk_espaco PRIMARY KEY (id)
-);
-
-
-CREATE TABLE recomendacao (
-	id						SERIAL				NOT NULL,
-	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	CONSTRAINT pk_espaco PRIMARY KEY (id)
-);
-
-
-CREATE TABLE evento (
-	id						SERIAL				NOT NULL,
-	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	data_evento				TIMESTAMP,
-	album					INT					NOT NULL,
-	CONSTRAINT pk_evento PRIMARY KEY (id)
-	CONSTRAINT fk_evento_album FOREIGN KEY (album) REFERENCES album (id)
-);
-
-
-CREATE TABLE participante (
-	id						SERIAL				NOT NULL,
-	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	CONSTRAINT pk_participante PRIMARY KEY (id)
+	atividade				INT,
+	recomendacao			INT,
+	CONSTRAINT pk_conteudo PRIMARY KEY (id),
+	CONSTRAINT fk_conteudo_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id),
+	CONSTRAINT fk_conteudo_subtopico FOREIGN KEY (subtopico) REFERENCES subtopico (id),
+	CONSTRAINT fk_conteudo_album FOREIGN KEY (album) REFERENCES album (id),
+	CONSTRAINT fk_conteudo_espaco FOREIGN KEY (espaco) REFERENCES espaco (id),
+	CONSTRAINT fk_conteudo_evento FOREIGN KEY (evento) REFERENCES evento (id),
+	CONSTRAINT fk_conteudo_atividade FOREIGN KEY (atividade) REFERENCES atividade (id),
+	CONSTRAINT fk_conteudo_recomendacao FOREIGN KEY (recomendacao) REFERENCES recomendacao (id)
 );
 
 
@@ -164,21 +177,9 @@ CREATE TABLE documento (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
 	documento				VARCHAR(500)		NOT NULL,
-	atividade				INT					NOT NULL,
+	conteudo				INT					NOT NULL,
 	CONSTRAINT pk_documento PRIMARY KEY (id),
-	CONSTRAINT fk_documento_atividade FOREIGN KEY (atividade) REFERENCES atividade (id)
-);
-
-
-CREATE TABLE classificacao (
-	id						SERIAL				NOT NULL,
-	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	atividade				INT					NOT NULL,
-	utilizador				INT					NOT NULL,
-	classificacao			SMALLINT			NOT NULL,
-	CONSTRAINT pk_gosto PRIMARY KEY (id),
-	CONSTRAINT fk_gosto_atividade FOREIGN KEY (atividade) REFERENCES atividade (id),
-	CONSTRAINT fk_gosto_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id)
+	CONSTRAINT fk_documento_conteudo FOREIGN KEY (conteudo) REFERENCES conteudo (id)
 );
 
 
@@ -186,24 +187,27 @@ CREATE TABLE comentario (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
 	comentario				VARCHAR(150)		NOT NULL,
-	atividade				INT					NOT NULL,
+	conteudo				INT					NOT NULL,
 	utilizador				INT					NOT NULL,
 	CONSTRAINT pk_comentario PRIMARY KEY (id),
-	CONSTRAINT fk_comentario_atividade FOREIGN KEY (atividade) REFERENCES atividade (id),
+	CONSTRAINT fk_comentario_conteudo FOREIGN KEY (conteudo) REFERENCES conteudo (id),
 	CONSTRAINT fk_comentario_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id)
 );
 
 
-CREATE TABLE subcomentario (
+CREATE TABLE classificacao (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	subcomentario			VARCHAR(150)		NOT NULL,
-	comentario				INT					NOT NULL,
+	classificacao			SMALLINT			NOT NULL,
+	conteudo				INT,
+	comentario				INT,
 	utilizador				INT					NOT NULL,
-	CONSTRAINT pk_subcomentario PRIMARY KEY (id),
-	CONSTRAINT fk_subcomentario_comentario FOREIGN KEY (comentario) REFERENCES comentario (id),
-	CONSTRAINT fk_subcomentario_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id)
+	CONSTRAINT pk_classificacao PRIMARY KEY (id),
+	CONSTRAINT fk_classificacao_conteudo FOREIGN KEY (conteudo) REFERENCES conteudo (id),
+	CONSTRAINT fk_classificacao_comentario FOREIGN KEY (comentario) REFERENCES comentario (id),
+	CONSTRAINT fk_classificacao_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id)
 );
+/** CONTEUDOS **/
 
 
 CREATE TABLE revisao (
@@ -211,11 +215,11 @@ CREATE TABLE revisao (
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
 	motivo					VARCHAR(500)		NOT NULL,
 	estado					INT					NOT NULL	DEFAULT (1),
-	atividade				INT,
+	conteudo				INT,
 	comentario				INT,
 	CONSTRAINT pk_revisao PRIMARY KEY (id),
 	CONSTRAINT fk_revisao_estado FOREIGN KEY (estado) REFERENCES estado (id),
-	CONSTRAINT fk_revisao_atividade FOREIGN KEY (atividade) REFERENCES atividade (id),
+	CONSTRAINT fk_revisao_conteudo FOREIGN KEY (conteudo) REFERENCES conteudo (id),
 	CONSTRAINT fk_revisao_comentario FOREIGN KEY (comentario) REFERENCES comentario (id)
 );
 
@@ -226,11 +230,10 @@ CREATE TABLE notificacao (
 	titulo					VARCHAR(100)		NOT NULL,
 	descricao				VARCHAR(500)		NOT NULL,
 	visualizado				BOOLEAN				NOT NULL	DEFAULT (FALSE),
-	atividade				INT,
+	conteudo				INT,
 	comentario				INT,
-	subcomentario			INT,
 	CONSTRAINT pk_notificacao PRIMARY KEY (id),
-	CONSTRAINT fk_notificacao_atividade FOREIGN KEY (atividade) REFERENCES atividade (id),
+	CONSTRAINT fk_notificacao_conteudo FOREIGN KEY (conteudo) REFERENCES conteudo (id),
 	CONSTRAINT fk_notificacao_comentario FOREIGN KEY (comentario) REFERENCES comentario (id)
 );
 
@@ -239,53 +242,9 @@ CREATE TABLE denuncia (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
 	motivo					VARCHAR(500)		NOT NULL,
-	atividade				INT,
-	comentario				INT,
-	utilizador				INT,
-	subcomentario			INT,
+	comentario				INT					NOT NULL,
+	utilizador				INT					NOT NULL,
 	CONSTRAINT pk_denuncia PRIMARY KEY (id),
-	CONSTRAINT fk_denuncia_atividade FOREIGN KEY (atividade) REFERENCES atividade(id),
-	CONSTRAINT fk_denuncia_comentario FOREIGN KEY (comentario) REFERENCES comentario(id),
+	CONSTRAINT fk_denuncia_comentario FOREIGN KEY (comentario) REFERENCES comentario (id),
 	CONSTRAINT fk_denuncia_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id)
 );
-
-
-/*Recomendações
-	titulo
-	descricao
-	imagem
-	utilizador
-	subtopico
-	endereco
-	classificacao
-	preco
-
-
-Eventos
-	titulo
-	descricao
-	imagem
-	utilizador
-	subtopico
-	endereco
-	data_evento
-
-
-Atividades
-	titulo
-	descricao
-	imagem
-	utilizador
-	subtopico
-	endereco
-	data_evento
-
-
-Espaços
-	titulo
-	descricao
-	imagem
-	utilizador
-	subtopico
-	endereco
-*/
