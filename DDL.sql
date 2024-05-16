@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS perfil CASCADE;
-DROP TABLE IF EXISTS sede CASCADE;
+DROP TABLE IF EXISTS centro CASCADE;
 DROP TABLE IF EXISTS interesse CASCADE;
 DROP TABLE IF EXISTS utilizador CASCADE;
 DROP TABLE IF EXISTS topico CASCADE;
@@ -26,21 +26,24 @@ CREATE TABLE perfil (
 );
 
 
-CREATE TABLE sede (
+CREATE TABLE centro (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	sede					VARCHAR(50)			NOT NULL,
-	CONSTRAINT pk_sede PRIMARY KEY (id)
+	centro					VARCHAR(50)			NOT NULL,
+	CONSTRAINT pk_centro PRIMARY KEY (id)
 );
 
 
 CREATE TABLE interesse (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	interesse				VARCHAR(50)			NOT NULL,
+	topico					INT					NOT NULL,
+	subtopico				INT					NOT NULL,
 	utilizador				INT					NOT NULL,
 	CONSTRAINT pk_interesse PRIMARY KEY (id),
-	CONSTRAINT fk_interesse_utilizador FOREIGN (utilizador) REFERENCES utilizador (id)
+	CONSTRAINT fk_interesse_topico FOREIGN KEY (topico) REFERENCES topico (id),
+	CONSTRAINT fk_interesse_subtopico FOREIGN KEY (subtopico) REFERENCES subtopico (id),
+	CONSTRAINT fk_interesse_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id)
 );
 
 
@@ -53,15 +56,16 @@ CREATE TABLE utilizador (
 	email					VARCHAR(100)		NOT NULL	UNIQUE,
 	senha					VARCHAR(500)		NOT NULL,
 	verificado				BOOLEAN				NOT NULL	DEFAULT (TRUE),
+	inativo					BOOLEAN				NOT NULL	DEFAULT (FALSE),
 	imagem					VARCHAR(500),
 	linkedin				VARCHAR(500),
 	instagram				VARCHAR(500),
 	facebook				VARCHAR(500),
 	perfil					INT					NOT NULL	DEFAULT (1),
-	sede					INT					NOT NULL,
+	centro					INT					NOT NULL,
 	CONSTRAINT pk_utilizador PRIMARY KEY (id),
 	CONSTRAINT fk_utilizador_perfil FOREIGN KEY (perfil) REFERENCES perfil (id),
-	CONSTRAINT fk_utilizador_sede FOREIGN KEY (sede) REFERENCES sede (id)
+	CONSTRAINT fk_utilizador_centro FOREIGN KEY (centro) REFERENCES centro (id)
 );
 
 
@@ -100,7 +104,7 @@ CREATE TABLE album (
 );
 
 
-CREATE TABLE atividade (
+CREATE TABLE conteudo (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
 	titulo					VARCHAR(100)		NOT NULL,
@@ -125,14 +129,34 @@ CREATE TABLE espaco (
 	CONSTRAINT pk_espaco PRIMARY KEY (id)
 );
 
+CREATE TABLE atividade (
+	id						SERIAL				NOT NULL,
+	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
+	CONSTRAINT pk_espaco PRIMARY KEY (id)
+);
 
-CREATE TABLE evento ( -- tem de ser possivel participar em um evento;
+
+CREATE TABLE recomendacao (
+	id						SERIAL				NOT NULL,
+	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
+	CONSTRAINT pk_espaco PRIMARY KEY (id)
+);
+
+
+CREATE TABLE evento (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
 	data_evento				TIMESTAMP,
 	album					INT					NOT NULL,
 	CONSTRAINT pk_evento PRIMARY KEY (id)
 	CONSTRAINT fk_evento_album FOREIGN KEY (album) REFERENCES album (id)
+);
+
+
+CREATE TABLE participante (
+	id						SERIAL				NOT NULL,
+	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
+	CONSTRAINT pk_participante PRIMARY KEY (id)
 );
 
 
@@ -224,3 +248,44 @@ CREATE TABLE denuncia (
 	CONSTRAINT fk_denuncia_comentario FOREIGN KEY (comentario) REFERENCES comentario(id),
 	CONSTRAINT fk_denuncia_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id)
 );
+
+
+/*Recomendações
+	titulo
+	descricao
+	imagem
+	utilizador
+	subtopico
+	endereco
+	classificacao
+	preco
+
+
+Eventos
+	titulo
+	descricao
+	imagem
+	utilizador
+	subtopico
+	endereco
+	data_evento
+
+
+Atividades
+	titulo
+	descricao
+	imagem
+	utilizador
+	subtopico
+	endereco
+	data_evento
+
+
+Espaços
+	titulo
+	descricao
+	imagem
+	utilizador
+	subtopico
+	endereco
+*/
