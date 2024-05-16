@@ -20,7 +20,6 @@ DROP TABLE IF EXISTS notificacao CASCADE;
 DROP TABLE IF EXISTS denuncia CASCADE;
 
 
-
 CREATE TABLE perfil (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
@@ -124,7 +123,7 @@ CREATE TABLE atividade (
 CREATE TABLE recomendacao (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	classificacao_lugar		SMALLINT			NOT NULL,
+	classificacao			SMALLINT			NOT NULL,
 	preco					MONEY				NOT NULL,
 	CONSTRAINT pk_recomendacao PRIMARY KEY (id)
 );
@@ -133,7 +132,7 @@ CREATE TABLE recomendacao (
 CREATE TABLE evento (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	data_evento				TIMESTAMP,
+	data_evento				TIMESTAMP			NOT NULL,
 	CONSTRAINT pk_evento PRIMARY KEY (id)
 );
 
@@ -144,7 +143,9 @@ CREATE TABLE participante (
 	observacao				VARCHAR(200)		NOT NULL,
 	evento					INT,
 	atividade				INT,
-	CONSTRAINT pk_participante PRIMARY KEY (id)
+	CONSTRAINT pk_participante PRIMARY KEY (id),
+	CONSTRAINT fk_conteudo_evento FOREIGN KEY (evento) REFERENCES evento (id),
+	CONSTRAINT fk_conteudo_atividade FOREIGN KEY (atividade) REFERENCES atividade (id)
 );
 
 
@@ -241,7 +242,7 @@ CREATE TABLE notificacao (
 CREATE TABLE denuncia (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	motivo					VARCHAR(500)		NOT NULL,
+	motivo					VARCHAR(200)		NOT NULL,
 	comentario				INT					NOT NULL,
 	utilizador				INT					NOT NULL,
 	CONSTRAINT pk_denuncia PRIMARY KEY (id),
