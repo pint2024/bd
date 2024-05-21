@@ -15,7 +15,8 @@ INSERT INTO utilizador (tag, nome, sobrenome, email, senha, perfil, centro) VALU
 	('@jsantos', 'João', 'Santos', 'joaosantos@gmail.com', 'senha1', 2, 1),
 	('@fmenses', 'Francisco', 'Meneses', 'franciscomeneses@gmail.com', 'senha1', 1, 1),
 	('@dvalpereiro', 'Daniel', 'Valpereiro', 'danielvalpereiro@gmail.com', 'senha1', 2, 1),
-	('@clatif', 'Cassamo', 'Latif', 'cassamolatif@gmail.com', 'senha1', 1, 1);
+	('@clatif', 'Cassamo', 'Latif', 'cassamolatif@gmail.com', 'senha1', 1, 1),
+	('@mmarques', 'Miguel', 'Marques', 'miguelmarques@gmail.com', 'senha1', 2, 1);
 
 INSERT INTO topico (topico) VALUES
     ('Tecnologia'),
