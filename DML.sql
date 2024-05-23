@@ -12,10 +12,10 @@ INSERT INTO centro (centro) VALUES
 
 INSERT INTO utilizador (tag, nome, sobrenome, email, senha, perfil, centro) VALUES
 	('@lsebastiao', 'Lucas', 'Sebastião', 'lucasmsebastiao@gmail.com', 'senha1', 1, 1),
-	('@jsantos', 'João', 'Santos', 'joaosantos@gmail.com', 'senha1', 2, 1),
-	('@fmenses', 'Francisco', 'Meneses', 'franciscomeneses@gmail.com', 'senha1', 1, 1),
+	('@jsantos', 'João', 'Santos', 'joao12fcp@gmail.com', 'senha1', 2, 1),
+	('@fmeneses', 'Francisco', 'Meneses', 'megazaine95@gmail.com', 'senha1', 1, 1),
 	('@dvalpereiro', 'Daniel', 'Valpereiro', 'danielvalpereiro@gmail.com', 'senha1', 2, 1),
-	('@clatif', 'Cassamo', 'Latif', 'cassamolatif@gmail.com', 'senha1', 1, 1),
+	('@clatif', 'Cassamo', 'Latif', 'cassamolatif01@gmail.com', 'senha1', 1, 1),
 	('@mmarques', 'Miguel', 'Marques', 'miguelmarques@gmail.com', 'senha1', 2, 1);
 
 INSERT INTO topico (topico) VALUES
