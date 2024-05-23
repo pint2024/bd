@@ -6,12 +6,9 @@ DROP TABLE IF EXISTS subtopico CASCADE;
 DROP TABLE IF EXISTS interesse CASCADE;
 DROP TABLE IF EXISTS estado CASCADE;
 DROP TABLE IF EXISTS album CASCADE;
-DROP TABLE IF EXISTS espaco CASCADE;
-DROP TABLE IF EXISTS atividade CASCADE;
-DROP TABLE IF EXISTS recomendacao CASCADE;
-DROP TABLE IF EXISTS evento CASCADE;
-DROP TABLE IF EXISTS participante CASCADE;
+DROP TABLE IF EXISTS tipo CASCADE;
 DROP TABLE IF EXISTS conteudo CASCADE;
+DROP TABLE IF EXISTS participante CASCADE;
 DROP TABLE IF EXISTS documento CASCADE;
 DROP TABLE IF EXISTS comentario CASCADE;
 DROP TABLE IF EXISTS classificacao CASCADE;
@@ -104,73 +101,43 @@ CREATE TABLE album (
 );
 
 
-/** CONTEUDOS **/
-CREATE TABLE espaco (
+CREATE TABLE tipo (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	CONSTRAINT pk_espaco PRIMARY KEY (id)
-);
-
-
-CREATE TABLE atividade (
-	id						SERIAL				NOT NULL,
-	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	data_evento				TIMESTAMP			NOT NULL,
-	CONSTRAINT pk_atividade PRIMARY KEY (id)
-);
-
-
-CREATE TABLE recomendacao (
-	id						SERIAL				NOT NULL,
-	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	classificacao			SMALLINT			NOT NULL,
-	preco					MONEY				NOT NULL,
-	CONSTRAINT pk_recomendacao PRIMARY KEY (id)
-);
-
-
-CREATE TABLE evento (
-	id						SERIAL				NOT NULL,
-	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	data_evento				TIMESTAMP			NOT NULL,
-	CONSTRAINT pk_evento PRIMARY KEY (id)
-);
-
-
-CREATE TABLE participante (
-	id						SERIAL				NOT NULL,
-	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	observacao				VARCHAR(200)		NOT NULL,
-	evento					INT,
-	atividade				INT,
-	CONSTRAINT pk_participante PRIMARY KEY (id),
-	CONSTRAINT fk_conteudo_evento FOREIGN KEY (evento) REFERENCES evento (id),
-	CONSTRAINT fk_conteudo_atividade FOREIGN KEY (atividade) REFERENCES atividade (id)
+	tipo					VARCHAR(50)		NOT NULL,
+	CONSTRAINT pk_tipo PRIMARY KEY (id)
 );
 
 
 CREATE TABLE conteudo (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	titulo					VARCHAR(100)		NOT NULL,
+	titulo					VARCHAR(200)		NOT NULL,
 	descricao				TEXT				NOT NULL,
 	imagem					VARCHAR(500)		NOT NULL,
 	endereco				VARCHAR(500)		NOT NULL,
+	data_evento				TIMESTAMP, -- evento & atividade
+	preco					MONEY, -- recomendação
+	classificacao			SMALLINT, -- recomendação
 	utilizador				INT					NOT NULL,
 	subtopico				INT					NOT NULL,
 	album					INT					NOT NULL,
-	espaco					INT,
-	evento					INT,
-	atividade				INT,
-	recomendacao			INT,
+	tipo					INT					NOT NULL,
 	CONSTRAINT pk_conteudo PRIMARY KEY (id),
 	CONSTRAINT fk_conteudo_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id),
 	CONSTRAINT fk_conteudo_subtopico FOREIGN KEY (subtopico) REFERENCES subtopico (id),
 	CONSTRAINT fk_conteudo_album FOREIGN KEY (album) REFERENCES album (id),
-	CONSTRAINT fk_conteudo_espaco FOREIGN KEY (espaco) REFERENCES espaco (id),
-	CONSTRAINT fk_conteudo_evento FOREIGN KEY (evento) REFERENCES evento (id),
-	CONSTRAINT fk_conteudo_atividade FOREIGN KEY (atividade) REFERENCES atividade (id),
-	CONSTRAINT fk_conteudo_recomendacao FOREIGN KEY (recomendacao) REFERENCES recomendacao (id)
+	CONSTRAINT fk_conteudo_tipo FOREIGN KEY (tipo) REFERENCES tipo (id)
+);
+
+
+CREATE TABLE participante ( -- evento
+	id						SERIAL				NOT NULL,
+	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
+	observacao				VARCHAR(200)		NOT NULL,
+	conteudo				INT					NOT NULL,
+	CONSTRAINT pk_participante PRIMARY KEY (id),
+	CONSTRAINT fk_participante_conteudo FOREIGN KEY (conteudo) REFERENCES conteudo (id)
 );
 
 
@@ -208,7 +175,6 @@ CREATE TABLE classificacao (
 	CONSTRAINT fk_classificacao_comentario FOREIGN KEY (comentario) REFERENCES comentario (id),
 	CONSTRAINT fk_classificacao_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id)
 );
-/** CONTEUDOS **/
 
 
 CREATE TABLE revisao (
