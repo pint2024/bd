@@ -60,11 +60,11 @@ INSERT INTO tipo (tipo) VALUES
 	('Espaço');
 
 INSERT INTO conteudo (titulo, descricao, imagem, endereco, utilizador, subtopico, album, tipo, data_evento, preco, classificacao) VALUES
-    ('Introdução à IA', 'Workshop introdutório sobre Inteligência Artificial', 'ia_intro.jpg', 'Rua Principal, 123', 2, 1, 4, 1, '23/05/2024', NULL, NULL),
-    ('Exposição de Pintura', 'Exposição de obras de artistas locais', 'art_exhibition.jpg', 'Avenida Central, 456', 5, 2, 5, 2, '23/05/2024', NULL, NULL),
+    ('Introdução à IA', 'Workshop introdutório sobre Inteligência Artificial', 'ia_intro.jpg', 'Rua Principal, 123', 2, 1, 4, 1, '05/23/2024', NULL, NULL),
+    ('Exposição de Pintura', 'Exposição de obras de artistas locais', 'art_exhibition.jpg', 'Avenida Central, 456', 5, 2, 5, 2, '05/23/2024', NULL, NULL),
     ('Conferência de Tecnologia', 'Evento anual sobre as últimas tendências em tecnologia', 'tech_conference.jpg', 'Centro de Convenções, Sala 1', 1, 1, 4, 3, NULL, 12, 5),
     ('Curso de Escrita Criativa', 'Aprenda a desenvolver habilidades de escrita criativa', 'creative_writing_course.jpg', 'Escola Municipal, Sala 3', 3, 4, 5, 4, NULL, NULL, NULL),
-    ('Visita Guiada ao Museu', 'Tour pelas exposições do museu local', 'museum_tour.jpg', 'Museu da Cidade, Sala de Entrada', 4, 2, 5, 1, '23/05/2024', NULL, NULL);
+    ('Visita Guiada ao Museu', 'Tour pelas exposições do museu local', 'museum_tour.jpg', 'Museu da Cidade, Sala de Entrada', 4, 2, 5, 1, '05/23/2024', NULL, NULL);
 
 INSERT INTO participante (observacao, conteudo) VALUES
     ('Confirmado', 1),
