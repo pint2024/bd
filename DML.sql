@@ -19,18 +19,31 @@ INSERT INTO utilizador (tag, nome, sobrenome, email, senha, perfil, centro) VALU
 	('@mmarques', 'Miguel', 'Marques', 'miguelmarques@gmail.com', 'senha1', 2, 1);
 
 INSERT INTO topico (topico) VALUES
-    ('Tecnologia'),
-    ('Cultura'),
-    ('Educação'),
-    ('Comércio'),
-    ('Saúde');
+    ('Saúde'),
+    ('Desporto'),
+    ('Formação'),
+    ('Gastronomia'),
+    ('Habitação'),
+    ('Transporte'),
+    ('Lazer');
 
 INSERT INTO subtopico (area, topico) VALUES
-    ('Inteligência Artificial', 1),
-    ('Artes Visuais', 2),
-    ('Ciências da Computação', 1),
-    ('Literatura', 2),
-    ('Ensino Fundamental', 3);
+    ('Outros...', 1),
+    ('Ginásio', 2),
+    ('Atividades ao ar livre', 2),
+    ('Centros de Formação', 3),
+    ('Escolas', 3),
+    ('Infantários', 3),
+    ('Restaurantes', 4),
+    ('Shoppings', 4),
+    ('Quartos para arrendar', 5),
+    ('Cassas para alugar', 5),
+    ('Cassas de férias', 5),
+    ('Escapadinhas', 5),
+    ('Boleias', 6),
+    ('Transportes públicos', 6),
+    ('Cinema', 7),
+    ('Parques', 7);
 
 INSERT INTO interesse (subtopico, utilizador) VALUES
     (1, 2),
