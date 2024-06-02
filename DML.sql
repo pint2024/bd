@@ -86,13 +86,6 @@ INSERT INTO participante (observacao, conteudo) VALUES
     ('Confirmado', 3),
     ('Pendente', 3);
 
-INSERT INTO documento (documento, conteudo) VALUES
-    ('ia_workshop_guide.pdf', 1),
-    ('exhibition_catalog.pdf', 2),
-    ('conference_schedule.pdf', 3),
-    ('writing_course_materials.pdf', 4),
-    ('museum_map.pdf', 5);
-
 INSERT INTO comentario (comentario, conteudo, utilizador) VALUES
     ('Ótimo evento, aprendi muito!', 1, 2),
     ('Adorei as obras expostas, especialmente a última!', 2, 5),
