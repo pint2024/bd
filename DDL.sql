@@ -141,16 +141,6 @@ CREATE TABLE participante ( -- evento
 );
 
 
-CREATE TABLE documento (
-	id						SERIAL				NOT NULL,
-	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	documento				VARCHAR(500)		NOT NULL,
-	conteudo				INT					NOT NULL,
-	CONSTRAINT pk_documento PRIMARY KEY (id),
-	CONSTRAINT fk_documento_conteudo FOREIGN KEY (conteudo) REFERENCES conteudo (id)
-);
-
-
 CREATE TABLE comentario (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
