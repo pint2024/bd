@@ -198,9 +198,11 @@ CREATE TABLE denuncia (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
 	motivo					VARCHAR(200)		NOT NULL,
+	estado					INT					NOT NULL	DEFAULT (1),
 	comentario				INT					NOT NULL,
 	utilizador				INT					NOT NULL,
 	CONSTRAINT pk_denuncia PRIMARY KEY (id),
+	CONSTRAINT fk_denuncia_estado FOREIGN KEY (estado) REFERENCES estado (id),
 	CONSTRAINT fk_denuncia_comentario FOREIGN KEY (comentario) REFERENCES comentario (id),
 	CONSTRAINT fk_denuncia_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id)
 );

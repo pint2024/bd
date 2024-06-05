@@ -53,8 +53,6 @@ INSERT INTO interesse (subtopico, utilizador) VALUES
     (4, 3);
 
 INSERT INTO estado (estado) VALUES
-    ('Ativo'),
-    ('Inativo'),
     ('Em Análise'),
     ('Aprovado'),
     ('Rejeitado');
