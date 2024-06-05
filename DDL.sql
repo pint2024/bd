@@ -115,9 +115,9 @@ CREATE TABLE conteudo (
 	descricao				TEXT				NOT NULL,
 	imagem					VARCHAR(500)		NOT NULL,
 	endereco				VARCHAR(500)		NOT NULL,
-	data_evento				TIMESTAMP, -- evento & atividade
-	preco					MONEY, -- recomendação
-	classificacao			SMALLINT, -- recomendação
+	data_evento				TIMESTAMP, 			-- evento & atividade
+	preco					MONEY, 				-- recomendação
+	classificacao			SMALLINT, 			-- recomendação
 	utilizador				INT					NOT NULL,
 	subtopico				INT					NOT NULL,
 	album					INT					NOT NULL,
