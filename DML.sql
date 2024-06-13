@@ -10,13 +10,13 @@ INSERT INTO centro (centro) VALUES
     ('Centro Cultural de Vila Real'),
     ('Centro Cultural de Coimbra');
 
-INSERT INTO utilizador (tag, nome, sobrenome, email, senha, perfil, centro) VALUES
-	('@lsebastiao', 'Lucas', 'Sebastião', 'lucasmsebastiao@gmail.com', 'senha1', 1, 1),
-	('@jsantos', 'João', 'Santos', 'joao12fcp@gmail.com', 'senha1', 2, 1),
-	('@fmeneses', 'Francisco', 'Meneses', 'megazaine95@gmail.com', 'senha1', 1, 1),
-	('@dvalpereiro', 'Daniel', 'Valpereiro', 'danielvalpereiro@gmail.com', 'senha1', 2, 1),
-	('@clatif', 'Cassamo', 'Latif', 'cassamolatif01@gmail.com', 'senha1', 1, 1),
-	('@mmarques', 'Miguel', 'Marques', 'miguelmarques@gmail.com', 'senha1', 2, 1);
+INSERT INTO utilizador (tag, nome, sobrenome, email, senha, perfil, centro, imagem, linkedin) VALUES
+	('lsebastiao', 'Lucas', 'Sebastião', 'lucasmsebastiao@gmail.com', 'senha1', 1, 1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718276850/utilizador/rl9w81ocmdkcfjryqgh8', 'www.linkedin.com/in/lmsebastiao'),
+	('jsantos', 'João', 'Santos', 'joao12fcp@gmail.com', 'senha1', 2, 1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718276850/utilizador/d1r8uh9dpl73hlxwjmcn', null),
+	('fmeneses', 'Francisco', 'Meneses', 'megazaine95@gmail.com', 'senha1', 1, 1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718276850/utilizador/kuho0cazsbeergrguzw6', null),
+	('dvalpereiro', 'Daniel', 'Valpereiro', 'danielvalpereiro@gmail.com', 'senha1', 2, 1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718276850/utilizador/g8rxahufvulth2rsamel', null),
+	('clatif', 'Cassamo', 'Latif', 'cassamolatif01@gmail.com', 'senha1', 1, 1, null, null),
+	('mmarques', 'Miguel', 'Marques', 'miguelmarques@gmail.com', 'senha1', 2, 1, null, null);
 
 INSERT INTO topico (topico) VALUES
     ('Saúde'),
@@ -46,11 +46,11 @@ INSERT INTO subtopico (area, topico) VALUES
     ('Parques', 7);
 
 INSERT INTO interesse (subtopico, utilizador) VALUES
-    (1, 2),
-    (3, 4),
+    (4, 2),
+    (4, 4),
     (2, 5),
-    (5, 1),
-    (4, 3);
+    (3, 1),
+    (1, 3);
 
 INSERT INTO estado (estado) VALUES
     ('Em Análise'),
