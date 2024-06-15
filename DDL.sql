@@ -91,15 +91,6 @@ CREATE TABLE estado (
 );
 
 
-CREATE TABLE album (
-	id						SERIAL				NOT NULL,
-	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	descricao				VARCHAR(100)		NOT NULL,
-	imagem					VARCHAR(500)		NOT NULL,
-	CONSTRAINT pk_album PRIMARY KEY (id)
-);
-
-
 CREATE TABLE tipo (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
@@ -120,13 +111,21 @@ CREATE TABLE conteudo (
 	classificacao			SMALLINT, 			-- recomendação
 	utilizador				INT					NOT NULL,
 	subtopico				INT					NOT NULL,
-	album					INT					NOT NULL,
 	tipo					INT					NOT NULL,
 	CONSTRAINT pk_conteudo PRIMARY KEY (id),
 	CONSTRAINT fk_conteudo_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id),
 	CONSTRAINT fk_conteudo_subtopico FOREIGN KEY (subtopico) REFERENCES subtopico (id),
-	CONSTRAINT fk_conteudo_album FOREIGN KEY (album) REFERENCES album (id),
 	CONSTRAINT fk_conteudo_tipo FOREIGN KEY (tipo) REFERENCES tipo (id)
+);
+
+
+CREATE TABLE album (
+	id						SERIAL				NOT NULL,
+	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
+	descricao				VARCHAR(100)		NOT NULL,
+	imagem					VARCHAR(500)		NOT NULL,
+	conteudo				INT
+	CONSTRAINT pk_album PRIMARY KEY (id)
 );
 
 
