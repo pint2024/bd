@@ -122,9 +122,8 @@ CREATE TABLE conteudo (
 CREATE TABLE album (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	descricao				VARCHAR(100)		NOT NULL,
 	imagem					VARCHAR(500)		NOT NULL,
-	conteudo				INT
+	conteudo				INT					NOT NULL,
 	CONSTRAINT pk_album PRIMARY KEY (id)
 );
 

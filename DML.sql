@@ -71,7 +71,7 @@ INSERT INTO conteudo (titulo, descricao, imagem, endereco, utilizador, subtopico
     ('Visita Guiada ao Museu', 'Tour pelas exposições do museu local', 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg', 'Museu da Cidade, Sala de Entrada', 4, 2, 1, '05/23/2024', NULL, NULL),
     ('Palestra sobre Sustentabilidade Urbana', 'Palestra abordando práticas sustentáveis em áreas urbanas', 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg', 'Rua da Paz, 789', 3, 3, 3, '2024-06-30', NULL, NULL),
     ('Oficina de Culinária Vegana', 'Aprenda a preparar pratos deliciosos sem ingredientes de origem animal', 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg', 'Espaço Gastronômico, Cozinha 2', 4, 4, 1, '2024-07-15', 50.00, NULL),
-    ('Concerto de Música Clássica', 'Apresentação de obras clássicas por renomada orquestra local', 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg', 'Teatro Municipal, Sala Principal', 1, 5, 2, '2024-08-05', 80.00, 16),
+    ('Concerto de Música Clássica', 'Apresentação de obras clássicas por renomada orquestra local', 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg', 'Teatro Municipal, Sala Principal', 1, 5, 2, '2024-08-05', 80.00, 3),
     ('Feira de Artesanato Regional', 'Exposição e venda de artesanato produzido por artistas da região', 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg', 'Praça Central, Tendas 1-5', 2, 2, 2, '2024-07-20', NULL, NULL),
     ('Workshop de Fotografia Digital', 'Aprenda técnicas avançadas de fotografia digital com profissionais do setor', 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg', 'Estúdio Fotográfico, Sala de Equipamentos', 5, 4, 1, '2024-08-10', 75.00, NULL),
     ('Conferência de Ciência e Tecnologia', 'Evento anual com palestras sobre avanços científicos e tecnológicos', 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg', 'Centro de Convenções, Auditório Principal', 1, 1, 3, '2024-09-15', NULL, NULL),
@@ -94,17 +94,17 @@ INSERT INTO conteudo (titulo, descricao, imagem, endereco, utilizador, subtopico
     ('Festival de Teatro de Rua', 'Apresentações teatrais ao ar livre por grupos de teatro locais e internacionais em vários pontos da cidade', 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg', 'Ruas do Centro Histórico, Palcos Múltiplos', 4, 5, 1, '2024-08-15', NULL, NULL),
     ('Curso de Marketing de Influência', 'Aprenda a criar estratégias eficazes de marketing usando influenciadores digitais como parceiros de negócios', 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg', 'Espaço de Coworking, Sala de Eventos', 3, 4, 4, '2024-09-05', 100.00, NULL);
 
-INSERT INTO album (conteudo, descricao, imagem) VALUES
-    (1, 'Viagem a Paris', 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg'),
-    (1, 'Férias de Verão', 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg'),
-    (1, 'Eventos da Empresa', 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg'),
-    (1, 'Conferências', 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg'),
-    (1, 'Viagem a Londres', 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg'),
-    (1, 'Férias de Inverno', 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg'),
-    (1, 'Eventos da Escola', 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg'),
-    (1, 'Reuniões', 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg'),
-    (1, 'Exposições de Quadros', 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg'),
-    (1, 'Exposições de Arte', 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg');
+INSERT INTO album (conteudo, imagem) VALUES
+    (1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg'),
+    (1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg'),
+    (1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg'),
+    (1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg'),
+    (1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg'),
+    (1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg'),
+    (1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg'),
+    (1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg'),
+    (1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg'),
+    (1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg');
 
 INSERT INTO participante (observacao, conteudo) VALUES
     ('Confirmado', 1),
