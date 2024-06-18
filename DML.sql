@@ -132,10 +132,22 @@ INSERT INTO classificacao (classificacao, conteudo, comentario, utilizador) VALU
     (5, 5, NULL, 4);
 
 INSERT INTO revisao (motivo, estado, conteudo, comentario) VALUES
-    ('Verificar se cumpre os padrões de qualidade.', 3, 1, NULL),
-    ('Aprovar para publicação no site.', 1, 2, NULL),
-    ('Analisar conteúdo e recomendar melhorias, se necessário.', 3, 4, NULL),
-    ('Confirmar se respeita as diretrizes da plataforma.', 2, 5, NULL);
+    ('Verificar se cumpre os padrões de qualidade.', 2, 1, NULL),
+    ('Aprovar para publicação no site.', 2, 2, NULL),
+    ('Analisar conteúdo e recomendar melhorias, se necessário.', 2, 4, NULL),
+    ('Confirmar se respeita as diretrizes da plataforma.', 2, 5, NULL),
+	('Verificar se cumpre os padrões de qualidade.', 2, 2, NULL),
+    ('Aprovar para publicação no site.', 2, 1, NULL),
+    ('Analisar conteúdo e recomendar melhorias, se necessário.', 2, 5, NULL),
+    ('Confirmar se respeita as diretrizes da plataforma.', 2, 4, NULL),
+	('Verificar se cumpre os padrões de qualidade.', 2, NULL, 1),
+    ('Aprovar para publicação no site.', 2, NULL, 2),
+    ('Analisar conteúdo e recomendar melhorias, se necessário.', 2, NULL, 4),
+    ('Confirmar se respeita as diretrizes da plataforma.', 2, NULL, 5),
+	('Verificar se cumpre os padrões de qualidade.', 2, NULL, 2),
+    ('Aprovar para publicação no site.', 2, NULL, 1),
+    ('Analisar conteúdo e recomendar melhorias, se necessário.', 2, NULL, 5),
+    ('Confirmar se respeita as diretrizes da plataforma.', 2, NULL, 4);
 
 INSERT INTO notificacao (titulo, descricao, conteudo, comentario) VALUES
     ('Aprovação de Conteúdo', 'Seu evento foi aprovado e está agora visível para outros usuários.', NULL, NULL),
