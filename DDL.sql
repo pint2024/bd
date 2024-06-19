@@ -131,9 +131,10 @@ CREATE TABLE album (
 CREATE TABLE participante ( -- evento
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	observacao				VARCHAR(200)		NOT NULL,
+	utilizador				INT					NOT NULL,
 	conteudo				INT					NOT NULL,
 	CONSTRAINT pk_participante PRIMARY KEY (id),
+	CONSTRAINT fk_participante_utilizador FOREIGN KEY (utilizador) REFERENCES utilizador (id),
 	CONSTRAINT fk_participante_conteudo FOREIGN KEY (conteudo) REFERENCES conteudo (id)
 );
 

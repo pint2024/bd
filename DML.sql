@@ -106,12 +106,12 @@ INSERT INTO album (conteudo, imagem) VALUES
     (1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg'),
     (1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718362888/g7bfmd1q9dmeadiudwr7.jpg');
 
-INSERT INTO participante (observacao, conteudo) VALUES
-    ('Confirmado', 1),
-    ('Pendente', 2),
-    ('Confirmado', 1),
-    ('Confirmado', 3),
-    ('Pendente', 3);
+INSERT INTO participante (utilizador, conteudo) VALUES
+    (1, 1),
+    (1, 2),
+    (1, 1),
+    (1, 3),
+    (1, 3);
 
 INSERT INTO comentario (comentario, conteudo, utilizador) VALUES
     ('Ótimo evento, aprendi muito!', 1, 2),
