@@ -11,7 +11,7 @@ INSERT INTO centro (centro) VALUES
     ('Centro Cultural de Coimbra');
 
 INSERT INTO utilizador (tag, nome, sobrenome, email, senha, perfil, centro, imagem, linkedin) VALUES
-	('lsebastiao', 'Lucas', 'Sebastião', 'lucasmsebastiao@gmail.com', 'senha1', 1, 1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718276850/utilizador/rl9w81ocmdkcfjryqgh8', 'www.linkedin.com/in/lmsebastiao'),
+	('lsebastiao', 'Lucas', 'Sebastião', 'lucasmsebastiao@gmail.com', 'senha1', 1, 1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718276850/utilizador/rl9w81ocmdkcfjryqgh8', 'https://linkedin.com/in/lmsebastiao'),
 	('jsantos', 'João', 'Santos', 'joao12fcp@gmail.com', 'senha1', 2, 1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718276850/utilizador/d1r8uh9dpl73hlxwjmcn', null),
 	('fmeneses', 'Francisco', 'Meneses', 'megazaine95@gmail.com', 'senha1', 1, 1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718276850/utilizador/kuho0cazsbeergrguzw6', null),
 	('dvalpereiro', 'Daniel', 'Valpereiro', 'danielvalpereiro@gmail.com', 'senha1', 2, 1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1718276850/utilizador/g8rxahufvulth2rsamel', null),
@@ -109,9 +109,9 @@ INSERT INTO album (conteudo, imagem) VALUES
 INSERT INTO participante (utilizador, conteudo) VALUES
     (1, 1),
     (1, 2),
-    (1, 1),
-    (1, 3),
-    (1, 3);
+    (1, 5),
+    (1, 7),
+    (1, 8);
 
 INSERT INTO comentario (comentario, conteudo, utilizador) VALUES
     ('Ótimo evento, aprendi muito!', 1, 2),
