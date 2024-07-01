@@ -168,7 +168,7 @@ CREATE TABLE classificacao (
 CREATE TABLE revisao (
 	id						SERIAL				NOT NULL,
 	data_criacao			TIMESTAMP			NOT NULL	DEFAULT NOW(),
-	motivo					VARCHAR(500)		NOT NULL,
+	motivo					VARCHAR(500),
 	estado					INT					NOT NULL	DEFAULT (1),
 	conteudo				INT,
 	comentario				INT,
