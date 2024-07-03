@@ -47,7 +47,7 @@ CREATE TABLE utilizador (
 	instagram				VARCHAR(500),
 	facebook				VARCHAR(500),
 	perfil					INT					NOT NULL	DEFAULT (1),
-	centro					INT					NOT NULL,
+	centro					INT,
 	CONSTRAINT pk_utilizador PRIMARY KEY (id),
 	CONSTRAINT fk_utilizador_perfil FOREIGN KEY (perfil) REFERENCES perfil (id),
 	CONSTRAINT fk_utilizador_centro FOREIGN KEY (centro) REFERENCES centro (id)
