@@ -40,7 +40,7 @@ CREATE TABLE utilizador (
 	sobrenome				VARCHAR(100)		NOT NULL,
 	email					VARCHAR(100)		NOT NULL	UNIQUE,
 	senha					VARCHAR(500)		NOT NULL,
-	verificado				BOOLEAN				NOT NULL	DEFAULT (TRUE),
+	verificado				BOOLEAN				NOT NULL	DEFAULT (FALSE),
 	inativo					BOOLEAN				NOT NULL	DEFAULT (FALSE),
 	imagem					VARCHAR(500),
 	linkedin				VARCHAR(500),
