@@ -45,13 +45,6 @@ INSERT INTO subtopico (area, topico) VALUES
     ('Cinema', 7),
     ('Parques', 7);
 
-/*INSERT INTO interesse (subtopico, utilizador) VALUES
-    (4, 2),
-    (4, 4),
-    (2, 5),
-    (3, 1),
-    (1, 3);*/
-
 INSERT INTO estado (estado) VALUES
     ('Em Análise'),
     ('Aprovado'),
@@ -94,71 +87,14 @@ INSERT INTO conteudo (titulo, descricao, imagem, endereco, utilizador, subtopico
     ('Festival de Teatro de Rua', 'Apresentações teatrais ao ar livre por grupos de teatro locais e internacionais em vários pontos da cidade', 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1717319787/samples/man-on-a-street.jpg', 'Ruas do Centro Histórico, Palcos Múltiplos', 4, 5, 1, '2024-08-15', NULL, NULL),
     ('Curso de Marketing de Influência', 'Aprenda a criar estratégias eficazes de marketing usando influenciadores digitais como parceiros de negócios', 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1717319787/samples/man-on-a-street.jpg', 'Espaço de Coworking, Sala de Eventos', 3, 4, 4, '2024-09-05', 100.00, NULL);
 
-/*INSERT INTO album (conteudo, imagem) VALUES
-    (1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1717319787/samples/man-on-a-street.jpg'),
-    (1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1717319787/samples/man-on-a-street.jpg'),
-    (1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1717319787/samples/man-on-a-street.jpg'),
-    (1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1717319787/samples/man-on-a-street.jpg'),
-    (1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1717319787/samples/man-on-a-street.jpg'),
-    (1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1717319787/samples/man-on-a-street.jpg'),
-    (1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1717319787/samples/man-on-a-street.jpg'),
-    (1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1717319787/samples/man-on-a-street.jpg'),
-    (1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1717319787/samples/man-on-a-street.jpg'),
-    (1, 'https://res.cloudinary.com/dqywsbdoi/image/upload/v1717319787/samples/man-on-a-street.jpg');*/
-
-/*INSERT INTO participante (utilizador, conteudo) VALUES
-    (1, 1),
-    (1, 2),
-    (1, 5),
-    (1, 7),
-    (1, 8);*/
-
-INSERT INTO comentario (comentario, conteudo, utilizador) VALUES
-    ('Ótimo evento, aprendi muito!', 1, 2),
-	('Adorei as obras expostas, especialmente a última!', 1, 5),
-    ('Palestra muito interessante, mal posso esperar pelo próximo ano!', 1, 1),
-    ('O curso foi muito útil para desenvolver minhas habilidades de escrita.', 1, 3),
-    ('A visita guiada foi informativa e divertida, recomendo!', 1, 4),
-    ('Adorei as obras expostas, especialmente a última!', 2, 5),
-    ('Palestra muito interessante, mal posso esperar pelo próximo ano!', 3, 1),
-    ('O curso foi muito útil para desenvolver minhas habilidades de escrita.', 4, 3),
-    ('A visita guiada foi informativa e divertida, recomendo!', 5, 4);
-
-/*INSERT INTO classificacao (classificacao, conteudo, comentario, utilizador) VALUES
-    (5, 1, NULL, 2),
-    (4, NULL, 2, 5),
-    (5, 3, NULL, 1),
-    (4, 4, NULL, 3),
-    (5, 5, NULL, 4);*/
-
-INSERT INTO revisao (motivo, estado, conteudo, comentario) VALUES
-    ('Verificar se cumpre os padrões de qualidade.', 2, 1, NULL),
-    ('Aprovar para publicação no site.', 2, 2, NULL),
-    ('Analisar conteúdo e recomendar melhorias, se necessário.', 2, 4, NULL),
-    ('Confirmar se respeita as diretrizes da plataforma.', 2, 5, NULL),
-	('Verificar se cumpre os padrões de qualidade.', 2, 3, NULL),
-    ('Aprovar para publicação no site.', 2, 6, NULL),
-    ('Analisar conteúdo e recomendar melhorias, se necessário.', 2, 7, NULL),
-    ('Confirmar se respeita as diretrizes da plataforma.', 2, 8, NULL),
-	('Verificar se cumpre os padrões de qualidade.', 2, NULL, 1),
-    ('Aprovar para publicação no site.', 2, NULL, 2),
-    ('Analisar conteúdo e recomendar melhorias, se necessário.', 2, NULL, 4),
-    ('Confirmar se respeita as diretrizes da plataforma.', 2, NULL, 5),
-	('Verificar se cumpre os padrões de qualidade.', 2, NULL, 6),
-    ('Aprovar para publicação no site.', 2, NULL, 7),
-    ('Analisar conteúdo e recomendar melhorias, se necessário.', 2, NULL, 8),
-    ('Confirmar se respeita as diretrizes da plataforma.', 2, NULL, 9);
-
-INSERT INTO notificacao (titulo, descricao, conteudo, comentario) VALUES
-    ('Aprovação de Conteúdo', 'Seu evento foi aprovado e está agora visível para outros usuários.', NULL, NULL),
-    ('Novo Comentário Recebido', 'Você recebeu um novo comentário em seu conteúdo.', NULL, 1),
-    ('Revisão Pendente', 'Seu conteúdo está aguardando revisão antes de ser publicado.', 2, NULL),
-    ('Atualização de Status', 'Seu comentário foi revisado e aprovado para publicação.', NULL, 2),
-    ('Denúncia Recebida', 'Recebemos uma denúncia sobre um dos seus comentários.', NULL, 4);
-
-INSERT INTO denuncia (motivo, comentario, utilizador) VALUES
-    ('Conteúdo inadequado', 3, 5),
-    ('Comentário ofensivo', 5, 4),
-    ('Suspeita de plágio', 1, 2),
-    ('Spam', 2, 1),
-    ('Assédio', 4, 3);
+INSERT INTO revisao (conteudo, comentario) VALUES
+    (1, NULL), (2, NULL), (3, NULL),
+    (4, NULL), (5, NULL), (6, NULL),
+    (7, NULL), (8, NULL), (9, NULL), 
+	(10, NULL), (11, NULL), (12, NULL),
+    (13, NULL), (14, NULL), (15, NULL), 
+	(16, NULL), (17, NULL), (18, NULL),
+	(19, NULL), (20, NULL), (21, NULL),
+	(22, NULL), (23, NULL), (24, NULL), 
+	(25, NULL), (26, NULL), (27, NULL), 
+	(28, NULL), (29, NULL);
