@@ -106,6 +106,8 @@ CREATE TABLE conteudo (
 	descricao				TEXT				NOT NULL,
 	imagem					VARCHAR(500)		NOT NULL,
 	endereco				VARCHAR(500)		NOT NULL,
+	latitude				NUMERIC(20, 15),
+	longitude				NUMERIC(20, 15),
 	data_evento				TIMESTAMP, 			-- evento & atividade
 	preco					MONEY, 				-- recomendação
 	classificacao			SMALLINT, 			-- recomendação
